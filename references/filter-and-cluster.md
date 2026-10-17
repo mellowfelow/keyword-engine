@@ -1,0 +1,220 @@
+# Filter, Intent & Clustering Reference
+
+**Calibrated to SEMrush KD% (0–100 scale).** If a client's export comes from a different tool (Ahrefs KD, Moz, etc.), say so explicitly in the session summary — the numbers below assume SEMrush's difficulty curve and will read too strict/loose against another tool's scale.
+
+## Filtering Rules
+
+### Niche Relevance
+Drop a keyword if it has zero semantic connection to the site's niche. Use the niche summary provided at session start.
+- Keep: anything about the product type, accessories, related activities, buying signals, brand names in the niche
+- Drop: unrelated products, generic terms that could mean anything, irrelevant industries
+
+When in doubt about relevance, keep the keyword and flag it for manual review rather than silently dropping it.
+
+### Volume Floor — intent-sensitive, not flat
+
+A flat floor throws away real money: a "buy [specific product model]" keyword at Vol 25 converts at a far higher rate than a Vol 25 informational term, and dropping it loses genuine revenue. The floor now varies by intent:
+
+| Intent | Volume Floor | Why |
+|--------|--------------|-----|
+| Transactional | **20** | Low-volume + ready-to-buy is still worth a page — these visitors convert |
+| Question | **20** | Low-volume questions still deserve an FAQ answer; the cost of including one is near-zero |
+| Commercial | **50** | Needs assured traffic to justify comparison/review content investment |
+| Informational | **50** | Needs assured traffic to justify guide/pillar content investment |
+| Navigational | **No floor** | Brand/model terms are kept regardless of volume — completeness matters more than volume here |
+
+Below the applicable floor = not worth a dedicated strategy. Drop and count, noting which floor applied.
+
+### KD Ceiling & Pools
+
+Tightened from the original release — SEMrush's KD% is known to under-represent true ranking difficulty for smaller/newer sites (it weights backlink profiles of current rankers, not the content depth or authority a new site actually needs). These bands assume a small-to-mid authority ecommerce site, not an established domain.
+
+| KD Range | Pool | Rule |
+|----------|------|------|
+| 0–34 | ✅ Primary Pool | Can be primary keyword on a dedicated page |
+| 35–54 | 🟡 Supporting Pool | LSI/secondary use only, never primary |
+| 55+ | 🔴 Dropped | Exclude entirely |
+
+**Exception — High Volume Outlier:**
+KD 35–54 AND Vol ≥ 2000 → move to "Revisit in 6 months" appendix in keyword-map.md. Do not assign now.
+
+**Exception — Low-KD Rescue (the mirror case):** a Transactional or Commercial keyword below the normal volume floor (Vol < 20) but with **KD ≤ 15** is not dropped — it's genuinely easy to rank for, and T/C intent means it converts when it does. Route it to the **Secondary Pool**, never as a primary/dedicated-page keyword (the volume alone doesn't justify a whole page), but it's a first-choice pick when supplementing a cluster's secondaries (see Secondary Keyword Supplementation below) — it's real, scored, easy-to-rank data, which beats reaching for a generated or related-search term with no data at all. **KD ≤ 10** specifically is the strongest rescue tier — flag these distinctly (`⭐ rescue`) since they're near-guaranteed quick wins.
+
+### Situational Drop — "Not Worth Fighting For"
+
+The numeric bands above are necessary but not sufficient. Some keywords pass every threshold and still aren't worth the effort *for this specific site, in this specific niche* — KD is a backlink-profile estimate, not a guarantee, and it can't see what's actually sitting in the SERP. Before finalizing the Primary/Supporting Pool, spot-check the highest-value candidates (T1/T2 keywords the map will actually build pages for) against these situational red flags:
+
+| Red flag | What it looks like | What to do |
+|---|---|---|
+| **Marketplace-dominated SERP** | Top 5-10 results are Amazon, eBay, Walmart, or similarly huge marketplaces — not independent retailers | Downgrade out of T1/T2 regardless of KD number; a small/new site realistically cannot outrank marketplace listings for this specific query. Keep it as a secondary/LSI term instead of a dedicated-page target. |
+| **Non-commercial SERP for a "commercial" keyword** | A keyword tagged Transactional/Commercial actually returns forums, Reddit, YouTube, or Quora in the top results | The labeled intent doesn't match reality — Google isn't reading this as a buying query no matter what the keyword text implies. Don't build a product/category page around it; route it to a blog/informational treatment instead, or drop. |
+| **Structurally irrelevant audience** | The keyword is technically on-topic but serves a search population the site doesn't actually sell to (e.g. a rental/hire-focused query on a site that only sells) | Drop, regardless of KD/Volume — the traffic wouldn't convert even if it ranked. |
+| **Niche too saturated at this KD** | The niche summary indicates heavy, well-funded competition (large national chains, established DTC brands) even at KD levels that would be easy in a quieter niche | Note as a judgment call in the session summary rather than silently including it — the client should decide whether to chase it anyway. |
+
+**This is a judgment layer, not a rigid rule** — when a red flag is genuinely ambiguous, flag it for the client rather than silently dropping or silently keeping it (same "flag, don't guess" principle as niche relevance above). State which flag applied and why in the keyword-map's notes for any keyword downgraded this way, so the client can see the reasoning and override it if they disagree.
+
+### Deduplication
+1. Lowercase everything
+2. Exact duplicates → keep one (highest volume wins)
+3. Near-duplicates (singular/plural, spelling variants, word order variants) → merge, keep higher-volume form, note the variants as LSI
+4. Acronym variants → keep the most-searched form, note the other as LSI
+
+### Brand Contamination
+- Competitor brand names → move to "Competitor Brands" list
+- These are valid ONLY for comparison/review blog posts (e.g. "Sur-Ron vs KTM electric")
+- Never use a competitor brand name as the primary keyword on a product page
+- Own brand name keywords → Navigational intent, assign to homepage or brand page
+
+### Geography Filter
+Apply strictly per site:
+- **US sites:** keep US spelling (aluminum, tire, gas), US units (mph, inches), US brand availability
+- **UK sites:** keep UK spelling (aluminium, tyre, petrol), UK units (mph but metric optional), UK brand availability
+- Drop any keyword that clearly targets the wrong market
+- Ambiguous keywords (no clear market signal) → keep for both but note as "market-neutral"
+
+---
+
+## Intent Classification Rules
+
+**⭐ Tie-break rule (apply first, always):** many real keywords carry signal words from more than one category — "how much does it cost" has both `how much`/`cost` (Transactional) and `does` (Question); "is it worth it" has both `worth it` (Commercial) and `is it` (Question). When a keyword matches signals from two or more categories, the higher-priority category always wins — never split the difference or classify by "which signal appears first in the string." Fixed order:
+
+**Transactional → Commercial → Informational → Question → Navigational**
+
+Worked examples: `buy [brand] [model]` matches Transactional (`buy`) AND Navigational (brand+model) → classify Transactional, it wins. `best [product] review` matches Commercial (`best`, `review`) only → Commercial. `how much does [product] cost` → Transactional (`how much`, `cost` outrank `does`). `is [product] worth it` → Commercial (`worth it` outranks `is it`).
+
+### Transactional (highest priority)
+**Signals:** buy, for sale, price, cost, how much, cheap, deal, discount, order, shop, near me, free shipping, in stock, purchase, get, where to buy
+**Assign to:** product pages, category pages
+**Never assign to:** blog posts (you'll bury the conversion opportunity)
+
+### Commercial (second priority)
+**Signals:** best, top, review, recommended, vs, compare, worth it, pros cons, alternatives, ranked, [year] + product, honest review
+**Assign to:** blog posts (comparison/review type), category pages if volume justifies
+**Note:** "Best electric dirt bikes" → category page if you carry multiple brands; blog post if it's editorial
+
+### Informational (third priority)
+**Signals:** how to, what is, why, guide, tips, explained, tutorial, learn, beginners, complete guide, everything you need to know
+**Assign to:** blog posts (guides, pillar content) — **blog posts are anchored on Informational primary keywords by default.** Commercial keywords also route to blog (comparison/review posts), but the pillar/guide backbone of the content calendar should be built from Informational primaries — see page-mapping.md's Blog Post section.
+**Note:** High-volume informational keywords = pillar post candidates
+
+### Question Intent
+**Signals:** does, can I, is it, how long, will, should, do I need, what happens, how often, are there, is there
+**Assign to:** FAQ bank (homepage FAQ, the dedicated FAQ page, AND a page-specific mini-FAQ on every product/category/blog/brand page where relevant question-intent keywords exist — see content-planning.md § Page-Level FAQ)
+**Secondary use:** include as H2 questions within relevant blog posts
+
+### Navigational
+**Signals:** brand name alone, brand + model number, brand + site name
+**Assign to:** brand hub pages, individual product pages — **brand hub pages are anchored on Navigational primary keywords by default,** the same way blog posts are anchored on Informational. A brand hub whose primary keyword isn't a brand/navigational term has drifted from its job.
+**Note:** If you don't stock the brand yet → product gap flag
+
+### Local Intent Layer (situational — only for sites with a physical location or service area)
+
+**Skip entirely for a pure ecommerce/ship-anywhere site** — this only applies when the niche summary or site scan shows a physical location, showroom, service area, or local delivery/installation offering.
+
+**Signal:** "near me," a named city/region + product/service, "[service] in [city]," "local," "delivery to [area]."
+
+**Handling:**
+- Tag these Transactional (they already carry buying intent, "near me" is a modifier on top, not a separate intent category)
+- Cluster separately from the site's general commercial/transactional clusters — a "[product] near me" or "[product] in [city]" cluster maps to a dedicated location/service-area page, never bolted onto the general category page as a secondary
+- If the site has multiple physical locations, each gets its own location-page cluster — don't merge them, that's the cannibalisation rule applying at the location level same as anywhere else
+- Route to LocalBusiness schema in the AI/GEO layer (`references/ai-visibility.md`) rather than the generic Organization schema
+
+**On-page requirement (location pages specifically):** NAP (Name/Address/Phone) consistency, embedded map, service-area description, local-specific FAQ (opening hours, parking, local delivery radius) — these are location-page-specific additions on top of the normal on-page formula, not a replacement for it.
+
+---
+
+## Scoring Rules
+
+### Priority Tier Assignment
+After intent classification, assign every Primary Pool keyword a tier. Volume floor is intent-sensitive (see Filtering Rules above — 20 for Transactional/Question, 50 for Commercial/Informational):
+
+| Tier | KD | Expected Rank Time | Priority |
+|------|-----|-------------------|----------|
+| T1 🥇 | 0–19 | 1–3 months | Highest — build first |
+| T2 🥈 | 20–34 | 3–6 months | High — build with quality content |
+| T3 🟡 | 35–54 | Never primary | Supporting use only |
+
+T1 is deliberately tighter than a generic "0–25" band — for a newer/smaller site, genuine 1–3-month wins live closer to KD 0–19 on SEMrush's scale; 20–25 routinely takes longer without an existing authority base.
+
+### Opportunity Score (for ranking within a tier, and for picking which keyword becomes primary in a cluster)
+
+Replaces the old volume-only composite score. Folds in CPC — a collected-but-previously-unused signal — as a real value indicator: a keyword with a $3 CPC represents buyers worth more per visit than a $0.20 CPC keyword at the same volume, and should be prioritized accordingly for "clean choices," not just easy ones.
+
+```
+Score = ((Volume × Intent Weight) / 10) − (KD × 2) + (CPC × 3)
+```
+
+**Intent Weight:** Transactional ×1.5 · Commercial ×1.2 · Question ×1.1 · Informational ×1.0 · Navigational ×1.0
+
+Higher score = higher priority. Use this to:
+- Rank keywords within the same tier when several compete for one assignment slot
+- Pick the primary keyword within a cluster (replaces the old "highest volume, lowest KD" rule alone — now highest Opportunity Score, which already accounts for both plus intent and commercial value)
+- Order the Top 5 Priority Actions in the session summary
+
+If a keyword's export has no CPC column, treat CPC as 0 for that keyword (the formula degrades gracefully — it just stops rewarding commercial value it has no data for, rather than breaking).
+
+---
+
+## Clustering Rules
+
+### What Makes a Cluster
+A cluster is a group of keywords that should all be targeted by a single URL. Test: "Would a user searching any of these keywords be satisfied by the same page?" If yes → same cluster.
+
+### Cluster Size (raw clustering stage — before page-assignment finalization)
+- Minimum: 2 keywords (singles go to orphan review list)
+- Maximum: 15 keywords (split larger clusters by subtopic)
+- Sweet spot: 4–8 keywords per cluster
+
+This is the size of the *natural* cluster formed from the pasted export. It's allowed to be thin at this stage — the minimum secondary requirement below is enforced later, at page-assignment (Phase 5), after supplementation.
+
+### Keyword Roles Within a Cluster (final, page-ready state)
+| Role | Count | Criteria |
+|------|-------|---------|
+| Primary | Exactly 1 | Highest Opportunity Score in the cluster (see Scoring Rules) |
+| Secondary | **Minimum 5, maximum 8** | Closely related, same intent as primary, page-worthy |
+| LSI/Supporting | Unlimited | Semantically related, T3 keywords welcomed here |
+
+**⭐ Every page-mapped cluster must reach 1 primary + 5+ secondary before the keyword-map is finalized.** This is a hard floor, not a target — a page shipping with only 2–3 secondary keywords is under-optimized and won't compete for the breadth of queries it should. Homepage is the one exception (see page-mapping.md — lighter treatment, topical-dilution risk is real on the site's single highest-authority page).
+
+### Secondary Keyword Selection Rules
+
+Not every topically-related keyword is a valid secondary — apply these before adding one to a cluster:
+
+1. **Intent compatibility with the primary.** A secondary should share the primary's intent, or be Question-intent (which supports any primary via the page-level FAQ, see content-planning.md). Never attach a purely Informational secondary to a Transactional-primary product page, or a Transactional secondary to a pure guide/pillar post — it signals the wrong thing to both the reader and Google about what the page is for. Commercial secondaries are compatible with a Transactional primary (e.g. a product page can carry a "best" comparison-flavoured secondary) since they still point at the same buying decision.
+2. **Same topic, real modifier variance.** A secondary should be the same product/topic as the primary, differentiated by a real modifier (price angle, use-case, audience, format) — not just a synonym restatement of the primary.
+3. **Page-worthy, not filler.** A secondary must be something the page can genuinely satisfy in its own content (a heading, a paragraph, a spec row) — if a keyword doesn't fit anywhere real on the page, it belongs in LSI/Supporting instead, not forced into the secondary slot just to hit a count.
+4. **Low-KD Rescue keywords get priority.** A real, scored Transactional/Commercial keyword at KD ≤ 15 (see the Low-KD Rescue exception above) always beats a generated or related-search secondary with no data behind it — use these first when supplementing (see step 1 below).
+
+### Secondary Keyword Supplementation (when the natural cluster is thin)
+
+If the raw cluster has fewer than 5 candidate secondaries after clustering, build up to 5 in this order — stop as soon as you hit 5, but note the last source actually used so the map stays honest about where each keyword came from:
+
+0. **Site-search query mining (if a site-search export is provided) — the highest-priority source when available.** If the user has internal site-search logs (most ecommerce platforms — Shopify, WooCommerce, etc. — can export this), pasted as a Query/Count list, check it for terms matching the cluster's topic. This is first-party, real-user intent data on this exact site and audience — stronger evidence than a generic SERP related-search, which only shows what's generically associated with the topic across the whole web. Optional input, skip cleanly if not provided (see Phase 1 startup).
+1. **Broaden within the existing pools first — Low-KD Rescue keywords first, then the rest of the Supporting/Primary Pool.** Re-scan for real, data-backed keywords on the same topic that didn't cluster tightly enough to be picked up automatically, prioritizing any KD ≤ 15 rescue candidates (⭐-flagged) before other Supporting Pool terms. This is real search data — always prefer it over generated keywords.
+2. **Competitor keyword mining (if a competitor SEMrush export is provided).** Scan the competitor's Organic Research/Keyword Gap export (the same one used for Competitor Gap Analysis, `references/product-gaps.md`) for real keywords on the same topic that the competitor ranks for and this site hasn't already claimed elsewhere. This carries real Volume/KD/CPC data, same as the site's own export — just from a different domain's ranking profile — so it outranks the no-data sources below it. Run every candidate through the normal Phase 1 filters (volume floor, KD ceiling) before use; a competitor ranking for a KD 70 term doesn't make it a valid secondary here any more than it made it a valid gap in Phase 8. Optional, skip cleanly if no competitor export was provided.
+3. **Google related searches.** `web_fetch` the live Google SERP for the cluster's primary keyword and pull the "related searches" / "people also ask" / "searches related to" terms shown. These are real query patterns Google itself associates with the topic, even without a volume number attached.
+4. **Generated transactional modifiers.** Combine the cluster's core topic noun with standard commercial modifiers to fill any remaining gap: `buy [X]`, `[X] for sale`, `cheap [X]`, `[X] price`, `[X] near me`, `shop [X] online`, `order [X]`, `[X] deals`, `best price on [X]`. Use only the modifiers that fit the cluster's actual intent — never bolt `buy`/`for sale` onto a purely informational cluster.
+
+**Label site-search-sourced keywords `[site-search]`** in the output, same as `[competitor]`/`[related-search]`/`[generated]` — they carry real query-count data (treat the query count as a rough volume proxy, not a SEMrush-equivalent number) but aren't from the original SEMrush export either, so the source stays transparent.
+
+**Scoring supplemented keywords:** keywords added via steps 0, 3, and 4 have no real SEMrush Volume/KD/CPC data (step 0's site-search query count is a usage signal, not a SEMrush-equivalent score). All three **inherit the cluster's Tier** (same T1/T2/T3 as the primary keyword) rather than being scored independently — simpler and faster than requiring separate verification, but it does mean the tier assignment for these specific terms is an assumption, not measured data. Steps 1 and 2 are the exception — both carry real SEMrush Volume/KD/CPC data (the site's own export and the competitor's export respectively) and are scored normally via the Opportunity Score formula, not inherited.
+
+**Label the source.** In the keyword-map output, mark every supplemented keyword with its source tag — `[site-search]`, `[competitor]`, `[related-search]`, or `[generated]` — next to the keyword, so a client reading the map can see at a glance which secondaries are export-backed and which were added to reach the floor.
+
+**Never pad with irrelevant keywords.** If a cluster is genuinely so niche that even related-searches + generated modifiers can't reach 5, ship it honestly — e.g. "Secondary count: 3/5 — niche too narrow for more, no forced padding" — rather than inventing keywords with no real connection to the page.
+
+### Cannibalisation Rules
+- One cluster = one URL. Non-negotiable.
+- If two clusters would logically land on the same URL → merge them
+- Never split a topic across two pages hoping to "cover more ground" — it splits authority
+- Check: if Google would show the same page in results for two different clusters, those clusters must be merged
+- **This applies to secondaries too, not just primaries.** Maintain a running used-keyword registry across every cluster as you assign secondaries — including supplemented ones (`[site-search]`, `[competitor]`, `[related-search]`, `[generated]`, Low-KD Rescue) — and never let the same keyword serve as a secondary on two different pages. Full audit procedure in `references/page-mapping.md` § Cannibalisation Audit.
+
+### Cluster Naming
+Name each cluster by its primary keyword for clarity. This name is used throughout all output documents.
+
+### Orphan Keywords
+Single keywords that don't cluster with anything:
+- If transactional/commercial + Vol 100+ → create a minimal cluster (this keyword as primary) and run it through Secondary Keyword Supplementation above to reach the 5+ floor before mapping it to a page
+- If informational + Vol < 200 → drop from primary strategy, move to "Future Consideration" list
+- If question-intent → route directly to FAQ bank regardless of whether it clusters
