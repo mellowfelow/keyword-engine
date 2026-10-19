@@ -435,8 +435,13 @@ disclosed as a known issue and shipped anyway.
 
 Re-validates a previously generated `taxonomy-map.md` against the live
 market, the same way Mode B re-validates keyword state against a live
-site. Re-runs the relevant parts of the pre-ship checklist against fresh
-data, not just a handful of drift questions:
+site. **Separate, independently-triggered mechanism from Mode B** — this
+re-validates the underlying research (brands, products, pricing,
+viability), Mode B audits live keyword implementation on the site; running
+one never automatically runs the other. Worth considering alongside a
+Mode B session when `taxonomy-map.md` looks stale (`SKILL.md` § MODE B —
+Audit Pipeline). Re-runs the relevant parts of the pre-ship checklist
+against fresh data, not just a handful of drift questions:
 
 - Is the original viability verdict still accurate? (Step A re-run)
 - Is the legal/compliance status unchanged? (regulations can shift)

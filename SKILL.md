@@ -83,6 +83,8 @@ OUTPUTS: updated keyword-map.md + blog-plan.md + in-chat audit summary
 → Read `references/audit-mode.md` for full audit phase instructions, including Phase 8 (Performance Validation — reads live GSC data via the in-app browser's logged-in session by default).
 → Read `references/output-formats.md` § MODE B Audit Output Format for update templates.
 
+**If `taxonomy-map.md` exists and looks stale** (the business has visibly moved on from it — new categories live on the site that aren't in the tree, or the recorded price ranges clearly don't match current listings), consider also running `niche-taxonomy.md`'s own Taxonomy Re-Audit alongside this Mode B session. The two are separate, independently-triggered mechanisms — Mode B audits live keyword *implementation*, the Taxonomy Re-Audit re-validates the underlying *research* (brands, products, pricing, viability) — and neither automatically runs the other.
+
 ---
 
 ## Session Startup Protocol
