@@ -111,7 +111,7 @@ shortcut — it's an incomplete harvest.
   source of truth for cannibalisation checks, never replaced by in-tool
   organization.
 
-## Quality Control
+## Quality Control — this file's own dedicated audit layer
 
 Governed by Rule 5 (`core-rules.md`). A scope boundary, a location
 discipline, a hard data-validity rule, a tracked quota, an interruption-

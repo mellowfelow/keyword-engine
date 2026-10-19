@@ -437,7 +437,7 @@ Calculated as: (PASS pages / total pages checked) × 100
 
 ## Mode B's own dedicated audit layer
 
-Every deliverable this skill produces gets checked before it ships, then re-checked when the rules it depends on change — Mode B is no exception, and this section is where that discipline lives for it, consolidated here rather than scattered across the phases above.
+Governed by Rule 5 (`core-rules.md`). Every deliverable this skill produces gets checked before it ships, then re-checked when the rules it depends on change — Mode B is no exception, and this section is where that discipline lives for it, consolidated here rather than scattered across the phases above.
 
 **What this layer checks is different from what Mode B itself reports.** Mode B's findings (CRITICAL/WARNING/orphans/etc.) are diagnostic output *about the live site* — a site full of findings isn't a failure of Mode B, that's the audit working. This layer checks whether **Mode B's own execution was correct**: did it actually run its phases as designed, not whether the site it audited happens to be clean.
 

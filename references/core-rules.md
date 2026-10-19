@@ -77,10 +77,11 @@ is the operational "how."
 - This is retroactive and forward-looking: `niche-taxonomy.md`'s two-layer
   Quality Control, the keyword-research files' own dedicated audit layers
   (`output-formats.md`'s `keyword-map.md` schema audit, `product-gaps.md`'s
-  own gap-type audit, `semrush-workflow.md`'s operational audit), and
-  Mode B's own dedicated audit layer (`audit-mode.md`) all comply. Every
-  future aspect added to this skill inherits this requirement by default —
-  never an afterthought bolted on at the end.
+  own gap-type audit, `semrush-workflow.md`'s operational audit,
+  `ai-visibility.md`'s own signal audit), and Mode B's own dedicated audit
+  layer (`audit-mode.md`) all comply. Every future aspect added to this
+  skill inherits this requirement by default — never an afterthought
+  bolted on at the end.
 - A genuinely airtight pass means re-reading the *whole* aspect against
   *every* rule it contains, not sampling a few obvious spots.
 

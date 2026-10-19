@@ -324,7 +324,7 @@ runs exactly as it does without Phase 0.
 
 ---
 
-## Quality Control
+## Quality Control — this file's own dedicated audit layer
 
 Two layers, governed by Rule 5 (`core-rules.md`) — the general, skill-wide
 orchestration layer sitting on top of this phase's own checklist. Rule 5
