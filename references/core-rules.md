@@ -74,12 +74,12 @@ is the operational "how."
 - **Any aspect's audit checklist must be updated in the same pass as any
   rule change to that aspect** — a rule that exists but isn't checked is
   the single most common failure mode. Never let it recur silently.
-- This is retroactive and forward-looking: `niche-taxonomy.md`'s two-layer
-  Quality Control, the keyword-research files' own dedicated audit layers
-  (`output-formats.md`'s `keyword-map.md` schema audit, `product-gaps.md`'s
-  own gap-type audit, `semrush-workflow.md`'s operational audit,
-  `ai-visibility.md`'s own signal audit), and Mode B's own dedicated audit
-  layer (`audit-mode.md`) all comply. Every future aspect added to this
+- This is retroactive and forward-looking: every reference file this skill
+  has gets its own dedicated audit layer — `niche-taxonomy.md`,
+  `filter-and-cluster.md`, `page-mapping.md`, `content-planning.md`,
+  `product-gaps.md`, `ai-visibility.md`, `semrush-workflow.md`, and
+  `output-formats.md`'s `keyword-map.md` schema audit — plus Mode B's own
+  dedicated layer in `audit-mode.md`. Every future aspect added to this
   skill inherits this requirement by default — never an afterthought
   bolted on at the end.
 - A genuinely airtight pass means re-reading the *whole* aspect against
@@ -134,13 +134,13 @@ is the operational "how."
 **This rule doesn't replace Rule 3's per-aspect checklists. It sits on top
 of all of them, unchanged, as an orchestration layer — it never restates
 what any checklist checks, only what happens with the result.** Applies to
-every aspect this skill has: `niche-taxonomy.md`, every phase of keyword
-research, `output-formats.md`'s and `product-gaps.md`'s own dedicated
-audit layers, `semrush-workflow.md`'s own dedicated layer,
-`ai-visibility.md`'s own dedicated layer, and Mode B's own dedicated audit
-layer in `audit-mode.md`. One retry/gate philosophy, confirmed in practice
-across both Mode A and Mode B, not two parallel ones invented separately
-for each.
+every reference file's own dedicated audit layer — `niche-taxonomy.md`,
+`filter-and-cluster.md`, `page-mapping.md`, `content-planning.md`,
+`product-gaps.md`, `ai-visibility.md`, `semrush-workflow.md`,
+`output-formats.md`'s `keyword-map.md` schema audit — and Mode B's own
+dedicated audit layer in `audit-mode.md`. One retry/gate philosophy,
+confirmed in practice across both Mode A and Mode B, not two parallel ones
+invented separately for each.
 
 ### A. Standardized audit result shape
 
@@ -200,13 +200,16 @@ A failed item may be reclassified as an **Honest Shortfall** only if
 
 Once every individual aspect in the session reports ✅ CLEAN or
 ⚠️ CLEAN WITH HONEST SHORTFALL, **the session still isn't automatically
-done.** One more pass runs: `niche-taxonomy.md`'s own Quality Control AND
-the keyword-research files' shared Quality Control, re-run together against
-the full, now-completed output covering the whole session. Two distinct
-checklists for two distinct files, not interchangeable — running only one
-would miss a collision between a taxonomy decision and a keyword-mapping
-decision (e.g. a taxonomy category name colliding with a Best Sellers
-primary).
+done.** One more pass runs: every reference file's own pre-ship checklist
+that this session actually touched — `niche-taxonomy.md`,
+`filter-and-cluster.md`, `page-mapping.md`, `content-planning.md`,
+`product-gaps.md`, `ai-visibility.md` — re-run together against the full,
+now-completed output covering the whole session, not just each one
+individually against its own aspect in isolation. Each is a distinct
+checklist for a distinct file, not interchangeable — running only one
+would miss a collision between, say, a taxonomy decision and a
+keyword-mapping decision (e.g. a taxonomy category name colliding with a
+Best Sellers primary).
 
 **Why this step can't be skipped:** two aspects can each pass their own
 local checklist individually and still collide with each other in a way

@@ -233,3 +233,28 @@ Single keywords that don't cluster with anything:
 - **If Transactional + Vol 20–99 ("Reason A" — true orphan, too low volume for its own page) → blog-eligible**, per the reversed blog-anchoring rule above. **Carve-out:** never applies if the keyword is actually the intended primary of a real taxonomy category, the homepage/shop page, the FAQ page, an active Sale/Best Sellers/New Arrivals/Compare/Wholesale page, an already-stocked product, or a stocked brand/Brand Hub — in those cases that page type's own rule takes precedence, full stop. Full routing in `page-mapping.md` §7.
 - **If Informational + Vol < 200 ("Reason A2" — true orphan, too low volume for its own page) → blog-eligible**, sourced as Informational last-resort filler per the strict T→C→I blog sourcing order (never ahead of Reason-A Transactional or Commercial), not dropped to a separate holding list. **Carve-out:** same as Reason A — never applies if the keyword is actually the intended primary of a real taxonomy category, the homepage/shop page, the FAQ page, an active Sale/Best Sellers/New Arrivals/Compare/Wholesale page, an already-stocked product, or a stocked brand/Brand Hub.
 - If question-intent → route directly to FAQ bank regardless of whether it clusters
+
+---
+
+## Quality Control — this file's own dedicated audit layer
+
+Governed by Rule 5 (`core-rules.md`). Phases 1–4 (Filter & Clean, Intent Classification, Scoring, Clustering) are the foundation every later phase builds on — a mistake here propagates everywhere downstream, so it gets its own dedicated layer rather than relying on a generic shared checklist.
+
+**Pre-ship checklist (run before Phase 4's output is finalized, every session):**
+1. **Filtering ran in the stated order, every keyword, no shortcuts**: niche relevance → intent-sensitive volume floor → KD ceiling → dedup → brand contamination → geography → cannibalisation pre-check.
+2. **KD bands are exactly 0–28 Primary / 29–35 Secondary-fallback-only / 36+ dropped** — no keyword above 28 was used as a primary, no keyword above 35 was used anywhere, under any exception (no Supporting Pool, no revisit-later appendix).
+3. **Low-KD Rescue was scoped correctly** — Transactional below Vol 20 or Commercial below Vol 50, KD ≤15, routed to Secondary only, never promoted to primary.
+4. **The intent tie-break rule actually resolved every multi-signal keyword** (Transactional → Commercial → Informational → Question → Navigational) — never split the difference, never classified by which signal appeared first in the string.
+5. **Primary selection followed the Transactional-then-Commercial gate**, not just Opportunity Score ranking — a Commercial keyword became primary only when zero Transactional candidates qualified. Secondaries followed the inverse (Commercial-then-Transactional) order.
+6. **If Phase 0 ran, seed clusters were checked first** before independent clustering — a natural cluster matching a taxonomy category extended that seed rather than forming an unnecessary duplicate.
+7. **Every cluster hit 1 primary + 5+ secondaries (3–5 for homepage/shop)** before being finalized — a cluster shipped under floor only with an honest stated reason ("3/5, niche too narrow"), never silently.
+8. **Secondary Keyword Selection Rules (all four criteria) were actually applied**, not just the floor count — intent compatibility, real modifier variance, page-worthy not filler, Low-KD Rescue priority.
+9. **Supplementation followed the stated order** (site-search → pool-broadening/Low-KD Rescue → competitor → related-search → generated) and every supplemented keyword carries its source tag.
+10. **Cannibalisation was checked continuously as clusters formed**, not batched at the end — the Used-Keywords Registry was live throughout, including for supplemented and Low-KD Rescue secondaries.
+11. **Situational Drop red flags were spot-checked** for T1/T2 candidates before locking them in (marketplace-dominated SERPs, non-commercial SERPs for nominally commercial keywords, structurally irrelevant audiences) — flagged in the map's notes, not silently dropped or silently kept.
+
+**Re-audit (later, same trigger pattern as every other Layer 2 in this skill):**
+- Has a keyword's intent classification drifted since the original pass? SERP behavior shifts over time — re-classify, don't assume the original tag still holds.
+- Has a KD re-check (via a refreshed Semrush link) shown a live primary now sitting above 28? Route to re-pick a primary, not a content tweak.
+- Has a Reason-A or Reason-A2 blog-routed keyword grown past its orphan threshold (vol 100/200)? Promote it out of blog.
+- Has the Low-KD Rescue pool or the Secondary Fallback band been quietly treated as a default-use pool rather than a last resort? Re-confirm it's still exceptional.

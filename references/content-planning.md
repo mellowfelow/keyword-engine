@@ -298,3 +298,26 @@ Use WebForge's class-based selector convention (never ID selectors — WebForge 
 }
 ```
 WebForge adds `class="faq-answer-speakable"` to the best answer element during build. Flag in `faq-bank.md` which question gets this class per page.
+
+---
+
+## Quality Control — this file's own dedicated audit layer
+
+Governed by Rule 5 (`core-rules.md`). Phases 6–7 (Blog Post Planning, FAQ Bank Generation) have their own volume targets, sourcing order, and word-count bands distinct enough to warrant a dedicated layer rather than a generic shared checklist.
+
+**Pre-ship checklist (run before Phases 6–7's output is finalized, every session):**
+1. **Blog sourcing followed the strict order**: Reason A (Transactional, vol 20–99) → Commercial → Reason A2/Informational as last-resort filler only — never Informational sourced ahead of T/C, never Reason B (real volume, no match) routed to blog.
+2. **Launch batch floor met for the niche's tier** (25–30 Micro/Small, up to 100+ Massive), or honestly under-delivered with the real number and a stated reason — never silently short, never padded with thin near-duplicate topics to hit the target.
+3. **Word count matches cluster size** (2–4kw → 800–1200w; 5–8kw → 1200–2000w; 9–12kw → 2000–3000w; 13+kw → 3000–5000w pillar).
+4. **Funnel position assigned correctly** (Bottom/Middle/Top by intent, Loyalty sourced last as a genuinely additive fifth category) — Loyalty content counts toward the same batch/1000+ target, never a separate quota.
+5. **FAQ word-count bands honored exactly**: homepage FAQ 40–55 words, dedicated FAQ page 50–65 words, 65-word hard ceiling never exceeded anywhere, including page-level mini-FAQs and in-post blog FAQs.
+6. **Page-Level FAQ sourced correctly** — 2–4 Q&As pulled first from the page's own cluster's question-intent keywords, never invented filler when a cluster genuinely has nothing to draw on.
+7. **No FAQ question duplicated across any of the three locations** (homepage FAQ, dedicated FAQ page, page-level mini-FAQs) — a question relevant to two pages was answered on exactly one, with the other linking to it.
+8. **Every blog brief is complete**, not a placeholder — title, meta, keywords, word count, content type, URL slug, H2/H3 outline, internal links both directions, image suggestions, schema type, FAQ section, funnel position, Status (`Pending`).
+9. **Pillar posts correctly identified** (top 3–5 by combined cluster volume) and every related cluster post links back to its relevant pillar.
+
+**Re-audit (later, same trigger pattern as every other Layer 2 in this skill):**
+- Is `blog-plan.md`'s Status field actually kept current — posts built but the field never flipped from `Pending` to `Built`?
+- Has a Reason-A or Reason-A2 orphan grown past its volume threshold since this was planned? Promote it out of blog.
+- Has the launch batch floor's shortfall been revisited as the niche's catalog/content has grown, or is a stale "niche too narrow" note still sitting on content that could now be expanded?
+- Have FAQ duplicates crept in as pages were edited independently over time (a mini-FAQ drifting to repeat the main FAQ page's questions)?

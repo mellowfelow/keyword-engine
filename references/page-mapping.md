@@ -290,3 +290,28 @@ Output a clean "no cannibalisation confirmed — URL, secondary, and FAQ levels"
 | Youth electric dirt bikes | electric dirt bikes for kids | 1300 | 22 | T1 | Transactional | /electric-dirt-bikes/youth/ | Category | Existing |
 | Sur-Ron Light Bee review | sur-ron light bee x review | 480 | 26 | T2 | Commercial | /blog/sur-ron-light-bee-review/ | Blog | New |
 ```
+
+---
+
+## Quality Control — this file's own dedicated audit layer
+
+Governed by Rule 5 (`core-rules.md`). Nine page-type pathways, three Guarantee variants, two lighter-treatment exceptions, and the full Cannibalisation Audit are too much distinct mechanics to leave to a generic shared checklist.
+
+**Pre-ship checklist (run before Phase 5's output is finalized, every session):**
+1. **Mapping Priority Order followed in sequence** (existing product → existing category/brand → homepage/shop → existing blog → new product gap → new category gap → new blog post → programmatic set → other guaranteed/conditional) — not an arbitrary assignment order.
+2. **Homepage AND shop page got the lighter treatment** — 1 primary + 3–5 secondaries, KD <28 with no fallback band, Transactional-priority primary, no padding-to-count supplementation — never the ordinary 5+ floor or 29–35 fallback other pages get.
+3. **Individual Brand pages anchor Navigational; Brand Hub exists only at 3+ distinct brands**, never left "conditional-pending" below that threshold — and the two were never confused with each other.
+4. **Conditional pages (Sale/Deals, Best Sellers/New Arrivals, Compare, Wholesale) were only built when the business model genuinely supports them** — and when active, their cannibalisation checks actually ran (Sale's three-way, Best Sellers/New Arrivals' four-way) against the homepage/shop, category pages, and each other.
+5. **New Arrivals' year-stamped primary matches the current year**; **Wholesale's secondaries are genuinely B2B-flavored**, not the retail cluster's secondaries reused as-is.
+6. **FAQ page built as the guaranteed default**, never skipped and never forced into a primary+secondary cluster count.
+7. **Every mapped page has a Journey Stage and bidirectional Internal Link Slots** (forward from Informational/Commercial to the Transactional page(s) it should funnel toward, back from Transactional to relevant Informational/Commercial content) — checked at the same time as the page's keyword assignment, not a separate pass.
+8. **Page-Level FAQ present on every page whose cluster supports it** (2–4 Q&As), never invented filler where the cluster has nothing to draw on.
+9. **The Cannibalisation Audit ran continuously at all three levels (URL/Secondary/FAQ) as pages were mapped**, with a final confirmation pass at the end — not checked only once at the finish.
+10. **Orphan singles correctly routed**: Reason A (Transactional, vol 20–99) and Reason A2 (Informational, vol <200) to blog, Reason B (real volume, no match) always to a Gap Flag — and every carve-out (taxonomy category, homepage/shop, FAQ, active conditional page, stocked product/brand) was checked before any orphan was blog-routed.
+11. **If Phase 0 ran, every seed cluster's taxonomy category/subcategory got its own page per the Category/Subcategory Guarantee** — none left unmapped because Phase 4's clustering output didn't explicitly flag it.
+
+**Re-audit (later, same trigger pattern as every other Layer 2 in this skill):**
+- Has a conditional page's trigger changed state (newly relevant, or no longer)? Re-run that page type's section.
+- Has the product stock list or brand roster changed? New products/brands need their Guarantee re-checked; crossing from 2 to 3+ brands means the Brand Hub now needs to exist where it didn't before.
+- Do newly added pages (since the original mapping) have their Journey-Stage links retrofitted, not left orphaned from the link graph?
+- Is `audit-mode.md`'s live Guarantee Flag check (via Mode B) actually catching the drift cases this file defines, or has a new page type been added here that the audit crawl doesn't yet recognize?
