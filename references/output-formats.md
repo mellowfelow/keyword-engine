@@ -1,6 +1,6 @@
 # Output Format Templates
 
-All five documents are produced at the end of every keyword engine session. They are designed to be read independently and used directly by code/build workflows.
+All four documents are produced at the end of every keyword engine session. They are designed to be read independently and used directly by code/build workflows.
 
 ---
 
@@ -10,9 +10,9 @@ All five documents are produced at the end of every keyword engine session. They
 # Keyword Map — [Site Name] ([Market: US/UK])
 **Generated:** [Date]
 **Total Keywords Processed:** [n]
-**Keywords Kept (Primary Pool):** [n]
-**Keywords in Supporting Pool:** [n]
-**Keywords Dropped:** [n]
+**Keywords Kept (Primary, KD ≤28):** [n]
+**Keywords Kept (Secondary, 29–35 fallback band only):** [n]
+**Keywords Dropped (above KD 35 — no exception):** [n]
 **Clusters Created:** [n]
 **Pages Mapped:** [n] existing / [n] new
 **Secondary-Floor Compliance:** [n]/[n] pages at 5+ secondaries ([n] supplemented, [n] under floor and flagged honestly — see Per-Page section)
@@ -31,16 +31,23 @@ All five documents are produced at the end of every keyword engine session. They
 ## Per-Page On-Page Requirements
 
 ### [Page URL]
+- **Guarantee Flag:** Yes (built because it must exist) / No (pre-existing page, mapped onto — not created by any Guarantee mechanism) / Active-Conditional (Sale/Best Sellers/New Arrivals/Compare/Wholesale, currently active)
+- **Intent-Chain-Used:** [which of T/C/N/I actually won for this primary — not assumed, the one that genuinely won the tie-break]
+- **Source Note:** [why this page exists — e.g. "Category/Subcategory Guarantee," "Approved Category Gap," "Active Sale trigger," "Pre-existing page, mapped"]
 - **Title Tag:** [formula output — max 60 chars]
 - **H1:** [formula output]
 - **Meta Description:** [formula output — 130–155 chars. This band satisfies both Google (≤160) and Bing (120–158). Target ~148 chars.]
 - **Primary Keyword:** [keyword] (Opportunity Score: [n])
-- **Secondary Keywords (5+ minimum — homepage: 3-5):** [kw1], [kw2], [kw3], [kw4], [kw5] [related-search], [kw6] [generated] — tag every supplemented keyword with its source (`[site-search]` / `[competitor]` / `[related-search]` / `[generated]`); untagged = export-backed real data
+- **Secondary Keywords (5+ minimum — homepage and shop page: 3-5):** [kw1], [kw2], [kw3], [kw4], [kw5] [related-search], [kw6] [generated] — tag every supplemented keyword with its source (`[site-search]` / `[competitor]` / `[related-search]` / `[generated]`); untagged = export-backed real data
 - **LSI/Supporting Keywords:** [list]
 - **Image Alt Text:** [primary keyword — product detail]
-- **Internal Links OUT:** [URL — anchor text], [URL — anchor text]
-- **Internal Links IN:** [URL — where/how to link here]
+- **Journey Stage:** Awareness / Consideration / Purchase / Loyalty
+- **Internal Links OUT:** [URL — anchor text], [URL — anchor text] — for Informational/Commercial content, this is the journey-stage forward link to the Transactional page(s) it should funnel toward (multiple pages allowed, not a single value)
+- **Internal Links IN:** [URL — where/how to link here] — for a Transactional page, the journey-stage back link from relevant Informational/Commercial content when it exists
 - **FAQ Schema:** Yes / No
+- **Page-Level FAQ (if FAQ Schema = Yes, 2–4 Q&As — `content-planning.md` § Page-Level FAQ):**
+  - **Q:** [Question] **A:** [40–65 word answer, includes a keyword naturally, ends with a link/CTA]
+  - [Repeat, 2–4 total]
 - **Speakable Target:** [CSS class e.g. `.faq-answer-speakable` / `.brand-statement`] / N/A — WebForge adds this class to the element during build
 - **Entity Coverage:** ✅ Product | ✅ Brand | ✅ Category | ⚠️ Location missing
 - **Definition Hook:** [1–2 sentence hook draft — place in first 150 words of page] — AI-citation formatted: fact-first, one claim per sentence, number anchored early
@@ -51,19 +58,13 @@ All five documents are produced at the end of every keyword engine session. They
 
 ---
 
-## Supporting Pool Keywords (KD 35–54)
-These keywords are NOT primary targets. Use them to enrich copy on the pages listed — or as `[site-search]`/`[competitor]`/`[related-search]`/`[generated]` supplements to reach a cluster's 5+ secondary floor.
+## Dropped Keywords (KD above 35 — nothing here is used anywhere)
 
-| Keyword | Vol | KD | Best Page to Use On | Role |
-|---------|-----|-----|-------------------|------|
-| [keyword] | [v] | [k] | [url] | LSI in body copy |
+**No Supporting Pool, no Revisit-in-6-Months appendix — both removed.** The KD ceiling is now a hard rule: primaries never exceed 28 (no fallback), secondaries default to ≤28 with a 29–35 fallback used only when genuinely needed to hit the secondary minimum, and **nothing above KD 35 is used anywhere, under any exception** — not enriched into body copy, not held for revisit, not appended as a reference list. A keyword above 35 is dropped, full stop, regardless of its volume. List it here only as a record of what was found and excluded, not as a usable resource:
 
----
-
-## Revisit in 6 Months (KD 35–54, Vol ≥ 2000)
-| Keyword | Vol | KD | Notes |
+| Keyword | Vol | KD | Reason Dropped |
 |---------|-----|-----|-------|
-| [keyword] | [v] | [k] | High demand, too competitive now — revisit when DA grows |
+| [keyword] | [v] | [k] | Above KD 35 ceiling — no exception applies |
 
 ---
 
@@ -77,23 +78,37 @@ These keywords are NOT primary targets. Use them to enrich copy on the pages lis
 
 ## Document 2: blog-plan.md
 
+**`blog-plan.md` now absorbs the old `keyword-cluster.txt`'s job too — one document, not two.** Every post row carries a **Status** field (`Pending` / `Built`), flipped to `Built` once WebForge actually publishes that post. WebForge reads this one file for both the brief content and the build queue (next unused post = next `Pending` row in priority order); there is no separate companion file anymore.
+
+**Launch batch floor is tiered by niche breadth, not a flat 20 — see the sizing proxy table in content-planning.md § Launch Batch Floor:**
+
+| Niche tier | Launch batch (ready at go-live) | Reserve pipeline (toward 1000+) |
+|---|---|---|
+| Micro/Small | 25–30 | Remainder, ongoing |
+| Medium | ~40–60 | Remainder, ongoing |
+| Large | ~70–100 | Remainder, ongoing |
+| Massive | 100+ | Remainder, ongoing |
+
 ```markdown
 # Blog Plan — [Site Name] ([Market: US/UK])
 **Generated:** [Date]
-**Total Blog Posts Planned:** [n] — minimum 20 fully-briefed, delivered day one ([n] scheduled in the first 12-week window, [n] queued in the backlog beyond it)
+**Niche Tier (content-planning.md's sizing proxy):** [Micro/Small/Medium/Large/Massive]
+**Total Blog Posts Planned:** [n] — launch batch target [n] per the tier table above ([n] scheduled in the first 12-week window, [n] queued in the backlog beyond it, toward the 1000+ overall target where the niche supports it)
 **Pillar Posts:** [n]
 **Standard Posts:** [n]
-**20-Post Floor:** ✅ Met ([n] briefed) / ⚠️ Short ([n] briefed — see note on why genuine expansion couldn't reach 20)
+**Launch Batch Floor:** ✅ Met ([n] briefed against a [n] target) / ⚠️ Short ([n] briefed — see note on why genuine expansion couldn't reach the tier's target)
 
 ---
 
 ## 12-Week Content Calendar (First Window — Backlog Continues Beyond Week 12)
 
-| Week | Post Title | Primary Keyword | Type | Funnel | Tier | Words | WebForge Schema |
-|------|-----------|----------------|------|--------|------|-------|----------------|
-| 1 | [title] | [keyword] | [type] | Bottom | T1 | [n] | Article + FAQPage |
-| 2 | [title] | [keyword] | [type] | Bottom | T1 | [n] | Article + HowTo |
+| Week | Post Title | Primary Keyword | Type | Funnel | Tier | Words | WebForge Schema | Status |
+|------|-----------|----------------|------|--------|------|-------|----------------|--------|
+| 1 | [title] | [keyword] | [type] | Bottom | T1 | [n] | Article + FAQPage | Pending |
+| 2 | [title] | [keyword] | [type] | Bottom | T1 | [n] | Article + HowTo | Pending |
 [...]
+
+**Status column:** `Pending` / `Built` — flipped to `Built` once WebForge actually publishes that post. This is the field that replaces the old `keyword-cluster.txt` queue — WebForge reads it directly from this table, there's no separate file to keep in sync.
 
 **WebForge Schema column key:**
 - `Article` — standard blog post (default in WebForge seo.md)
@@ -124,7 +139,7 @@ These keywords are NOT primary targets. Use them to enrich copy on the pages lis
 
 ## Backlog Posts (Beyond Week 12)
 
-All remaining briefed posts that didn't fit the first 12-week window — full briefs, same completeness as any scheduled post, ready to build whenever capacity allows. These are sequenced in keyword-cluster.txt alongside the scheduled posts, not held back for a future session.
+All remaining briefed posts that didn't fit the first 12-week window — full briefs, same completeness as any scheduled post, ready to build whenever capacity allows. These are sequenced in this same document (with their own `Pending`/`Built` Status), not held back for a future session and not in a separate file.
 
 [Full brief for each backlog post]
 
@@ -152,7 +167,7 @@ All remaining briefed posts that didn't fit the first 12-week window — full br
 These go in the FAQ section on the homepage. Short, buyer-focused, objection-removing.
 
 **Q: [Question]**
-A: [40–60 word answer. Concrete. Includes keyword. Ends with CTA or link.]
+A: [40–55 word answer. Concrete. Includes keyword. Ends with CTA or link.]
 
 [Repeat for all homepage FAQ questions]
 
@@ -181,10 +196,10 @@ A: [40–60 word answer. Concrete. Includes keyword. Ends with CTA or link.]
 ### [Theme 1: e.g. About Our Products]
 
 **Q: [Question]** ⭐ [Speakable — mark best answer per theme]
-A: [50–80 word answer]
+A: [50–65 word answer]
 
 **Q: [Question]**
-A: [50–80 word answer]
+A: [50–65 word answer]
 
 [Continue...]
 
@@ -221,11 +236,13 @@ A: [50–80 word answer]
 
 ## Priority Matrix
 
-| Gap Name | Type | Demand Signal | CPC Signal | Priority | Est. Revenue Potential |
-|----------|------|--------------|-----------|----------|----------------------|
-| [name] | Brand | [combined vol] | High | T1 | High |
-| [name] | Competitor | [combined vol] | Medium | T2 | Medium |
+| Gap Name | Type | Demand Signal | CPC Signal | Recommended Price | Priority | Est. Revenue Potential |
+|----------|------|--------------|-----------|-------------------|----------|----------------------|
+| [name] | Brand | [combined vol] | High | [single recommended price, from competitor research] | T1 | High |
+| [name] | Competitor | [combined vol] | Medium | [single recommended price, from competitor research] | T2 | Medium |
 [...]
+
+**Recommended Price** is the price-tiered-volume criteria's output — a single number per gap, sourced from competitor pricing research, not a range. Re-check it before an approval if competitor pricing has moved since this was generated (it goes stale the same way any competitive data does).
 
 ---
 
@@ -282,26 +299,9 @@ A: [50–80 word answer]
 
 ---
 
-## Document 5: keyword-cluster.txt (WebForge companion file)
+## Document 5: deprecated — merged into blog-plan.md
 
-Always produce this alongside keyword-map.md. WebForge project instructions reference `docs/keyword-cluster.txt` directly — it reads this file to pull the next unused blog cluster for each new post build.
-
-Format: flat text, one cluster per line, tab-separated. Mark each cluster as USED once WebForge builds that blog post.
-
-```
-# keyword-cluster.txt — [Site Name] ([Market])
-# Generated by keyword-engine. Place in docs/. Never in public/.
-# WebForge reads this to pick next unused blog cluster.
-# Mark USED after WebForge builds each post.
-# Minimum 20 fully-briefed clusters below — the 12-week window is a first pass, not a cap; backlog clusters beyond it are listed here too, ready to build.
-
-[UNUSED]	electric dirt bikes for kids	/blog/electric-dirt-bikes-for-kids/	Informational	T1	1400w	Article+FAQPage
-[UNUSED]	sur-ron vs segway x260	/blog/sur-ron-vs-segway-x260/	Commercial	T1	1800w	Article
-[UNUSED]	how to charge an electric dirt bike	/blog/how-to-charge-electric-dirt-bike/	Informational	T2	1000w	Article+HowTo
-[USED]	best electric dirt bikes 2025	/blog/best-electric-dirt-bikes/	Commercial	T1	2500w	Article
-```
-
-Column order: `[STATUS]` | Primary Keyword | Proposed URL | Intent | Tier | Word Count | WebForge Schema
+`keyword-cluster.txt` no longer exists as a separate file. The problem it solved (giving WebForge a flat, easy-to-scan build queue) is now solved inside `blog-plan.md` itself via its per-post `Status` (`Pending`/`Built`) field, documented in Document 2 above. Only four real documents are produced now: `keyword-map.md`, `blog-plan.md`, `faq-bank.md`, `product-gaps.md`.
 
 ---
 
@@ -317,9 +317,9 @@ At the end of every session, output this summary in chat before delivering the f
 
 ### What Was Processed
 - Raw keywords received: [n]
-- Keywords kept (Primary Pool): [n]
-- Keywords in Supporting Pool: [n]
-- Keywords dropped: [n]
+- Keywords kept (primary, KD ≤28): [n]
+- Keywords kept (secondary, 29–35 fallback band only): [n]
+- Keywords dropped (above KD 35 — no exception applies): [n]
 
 ### What Was Built
 - Keyword clusters created: [n]
@@ -327,7 +327,7 @@ At the end of every session, output this summary in chat before delivering the f
 - New pages needed: [n] (see product-gaps.md)
 - Secondary-keyword floor: [n]/[n] pages at 5+ secondaries — [n] needed supplementation ([n] site-search, [n] competitor, [n] related-search, [n] generated), [n] shipped honestly under floor
 - Programmatic page sets flagged: [n] (only if the catalog has genuine combinatorial scale — otherwise omit)
-- Blog posts planned: [n] ([n] pillar, [n] standard) — 20-post floor: ✅ Met / ⚠️ Short ([n] scheduled in first 12 weeks, [n] in backlog)
+- Blog posts planned: [n] ([n] pillar, [n] standard) — launch batch floor (per niche tier): ✅ Met / ⚠️ Short ([n] scheduled in first 12 weeks, [n] in backlog toward 1000+)
 - FAQ entries generated: [n] ([n] homepage, [n] full page)
 - Product gaps identified: [n] ([n] brand, [n] product, [n] category, [n] accessory, [n] competitor — "Not run" if no competitor export)
 - Link magnet candidates flagged: [n] ([n] if none identified this session, say so plainly)
@@ -350,16 +350,15 @@ At the end of every session, output this summary in chat before delivering the f
 ### Documents Delivered
 ⚠️ All documents belong in docs/ only — never in public/ or the deploy ZIP (WebForge Rule 12).
 - docs/keyword-map.md ✅
-- docs/keyword-cluster.txt ✅ (WebForge blog queue — mark clusters USED after each post build)
-- docs/blog-plan.md ✅
+- docs/blog-plan.md ✅ (also the WebForge blog build queue — flip each post's Status to Built after it's published)
 - docs/faq-bank.md ✅
 - docs/product-gaps.md ✅
 
 ### Hand-off to WebForge
 When starting a WebForge build session after running keyword-engine:
-1. Attach docs/keyword-map.md and docs/keyword-cluster.txt to the WebForge Claude Project
+1. Attach docs/keyword-map.md and docs/blog-plan.md to the WebForge Claude Project
 2. WebForge reads keyword-map.md for page meta, H1s, and on-page keyword targets
-3. WebForge reads keyword-cluster.txt for the blog post build queue
+3. WebForge reads blog-plan.md for the blog post build queue (next unused post = next `Pending` row)
 4. WebForge reads faq-bank.md for homepage FAQ and FAQ page content
 5. WebForge reads product-gaps.md to decide which product/category pages to create
 ```
@@ -368,7 +367,7 @@ When starting a WebForge build session after running keyword-engine:
 
 ## MODE B Audit Output Format
 
-Audit mode updates existing docs rather than creating new ones. The two files it modifies are keyword-map.md and keyword-cluster.txt. Use these templates for the additions.
+Audit mode updates existing docs rather than creating new ones. The two files it modifies are keyword-map.md and blog-plan.md (the latter replaces the old keyword-cluster.txt target now that the two files are merged). Use these templates for the additions.
 
 ### keyword-map.md Audit Additions
 
@@ -383,23 +382,30 @@ Append the following sections to the END of the existing keyword-map.md. Never o
 
 ### Audit Status by Page
 
-| URL | Planned Primary KW | Detected Primary KW | Secondaries Planned | Audit Status | Issue | Fix Required |
-|-----|--------------------|--------------------|---------------------|--------------|----|------------|
-| /url/ | [planned kw] | [detected kw] | 6/6 | ✅ PASS | — | — |
-| /url/ | [planned kw] | [different kw] | 5/5 | 🔴 CRITICAL | KW not in title or H1 | Update title tag and H1 to include "[planned kw]" |
-| /url/ | [planned kw] | [planned kw] | 5/5 | 🟠 WARNING | KW missing from meta description | Add "[planned kw]" to meta description |
-| /url/ | [planned kw] | [planned kw] | 3/5 ⚠️ | 🟠 WARNING | Planned secondaries under the 5+ floor — page mapped before this rule | Re-run through Phase 4/5 supplementation, add 2 more secondaries |
-| /url/ | [planned kw] | [different kw] | 5/5 | 🟡 DRIFTED | Page targeting wrong keyword | Either update plan or update page |
+| URL | Planned Primary KW | Detected Primary KW | Secondaries Planned | Guarantee Flag Still Matches? | Audit Status | Issue | Fix Required |
+|-----|--------------------|--------------------|---------------------|-------------------------------|--------------|----|------------|
+| /url/ | [planned kw] | [detected kw] | 6/6 | Yes | ✅ PASS | — | — |
+| /url/ | [planned kw] | **N/A — page is noindexed** | — | Yes | 🔴 CRITICAL | `noindex` directive present — every other check on this page is moot until this is fixed | Remove the `noindex` directive; re-check the rest of this row only after it's confirmed indexable |
+| /url/ | [planned kw] | [different kw] | 5/5 | Yes | 🔴 CRITICAL | KW not in title or H1 | Update title tag and H1 to include "[planned kw]" |
+| /url/ | [planned kw] | [planned kw] | 5/5 | Yes | 🟠 WARNING | KW missing from meta description | Add "[planned kw]" to meta description |
+| /url/ | [planned kw] | [planned kw] | 3/5 ⚠️ | Yes | 🟠 WARNING | Planned secondaries under the 5+ floor (or 3+ for homepage/shop) — page mapped before this rule | Re-run secondary supplementation (filter-and-cluster.md), add 2 more secondaries |
+| /url/ | [planned kw] | [different kw] | 5/5 | Yes | 🟡 DRIFTED | Page targeting wrong keyword | Either update plan or update page |
+| /url/ | [planned kw] | [planned kw] | 5/5 | **No — Active-Conditional page no longer live** | 🟡 DRIFTED | Sale/Best Sellers/Compare/Wholesale trigger no longer applies | Update Guarantee Flag to reflect current state; don't leave it stale |
+
+**Blog posts get a registry-only line here, not a full row** — their Status field already lives authoritatively in `blog-plan.md`; duplicating it into a second row here is exactly the two-files-same-data problem this skill's output documents already fixed once (the `keyword-cluster.txt`/`blog-plan.md` merge). Cross-reference against `blog-plan.md`'s own Status field for that post instead.
 
 ### ⚫ Cannibalisation Flags
 | Keyword | Page A | Page B | Recommendation |
 |---------|--------|--------|---------------|
 | [keyword] | [url-a] | [url-b] | MERGE into [url] / DIFFERENTIATE: change [url-b] to target "[alt keyword]" |
 
+Includes the homepage/shop near-duplicate check (flagged even without an exact keyword match — see `audit-mode.md` § Cannibalisation Severity) and every N-way carve-out (Sale's three-way, Best Sellers/New Arrivals' four-way, Wholesale's fourth-direction) at live-site scale, not just at plan time. Also includes the secondary-level (same secondary planned on two URLs in `keyword-map.md`) and FAQ-level (same buyer question answered on two or more crawled pages) checks — `audit-mode.md` § Secondary-level and FAQ-level cannibalisation — listed in this same table or as a short FAQ-duplicate note beneath it.
+
 ### 🟣 Orphan Pages
-| URL | Discovered Via | Recommendation |
-|-----|---------------|---------------|
-| [url] | [nav/link/sitemap] | Assign cluster "[keyword]" / Consolidate into [url] / Delete + 301 to [url] |
+| URL | Guarantee-Mandated? | Discovered Via | Recommendation |
+|-----|---------------------|---------------|---------------|
+| [url] | Yes ([which Guarantee]) | [nav/link/sitemap] | **Relink per page-mapping.md's Internal Link Slots — never delete** |
+| [url] | No | [nav/link/sitemap] | Assign cluster "[keyword]" / Consolidate into [url] / Delete + 301 to [url] |
 
 ### 💡 Bonus Opportunities
 | Detected Signal | Found On | Suggested Cluster | Suggested Page | Potential |
@@ -422,15 +428,13 @@ Append the following sections to the END of the existing keyword-map.md. Never o
 **Refresh queue:** [n] pages with 20%+ traffic drop — via live GSC Compare mode by default; skipped only if the fallback export had no trend column — see keyword-map.md § Performance Validation.
 ```
 
-### keyword-cluster.txt Audit Additions
+### blog-plan.md Audit Additions
 
-Update status flags inline, add new bonus clusters at bottom:
+Update each post's Status field inline (Pending → Built, as confirmed built during the crawl) rather than appending a separate log — this file's existing per-post rows/briefs are the single source of truth, not a parallel status list. For the 12-Week Content Calendar table specifically, flip the Status cell in place. Add any newly-discovered bonus topics as new full briefs in the Backlog Posts section (same Blog Brief Template as every other backlog entry, content-planning.md) — not a table row, since backlog posts here are full briefs, not calendar-table entries — each starting at Status: Pending and tagged with when the audit found it:
 
 ```
-# Last audited: [date] — [n] clusters confirmed USED, [n] bonus clusters added
-
-[USED]    [primary keyword]    [url]    [intent]    [tier]    [wordcount]    [schema]
-[UNUSED]  [primary keyword]    [url]    [intent]    [tier]    [wordcount]    [schema]    ← BONUS from [date] audit
+## Blog Brief: [Post Title] ← BONUS from [date] audit
+[... full brief, same template as any other backlog post]
 ```
 
 ### Health Score Reference
@@ -440,7 +444,8 @@ Update status flags inline, add new bonus clusters at bottom:
 | 90–100 | 🟢 Excellent | Nearly all pages correctly implementing keywords |
 | 75–89 | 🟡 Good | Most pages correct, some warnings to fix |
 | 60–74 | 🟠 Needs Work | Significant drift or missing implementations |
-| Below 60 | 🔴 Poor | Major issues — priority fixes required before new content |
+| 40–59 | 🔴 Poor | Major issues — priority fixes required before new content |
+| Below 40 | 🔴 Poor — consider a full Mode A re-run | This many pages drifting this far usually means the original research itself no longer fits the site (taxonomy changed, catalog grew, business model shifted) — patching live pages one at a time won't close that gap. Recommend re-running Mode A from scratch rather than only working through the fix list. |
 
 A site should aim for 85+ before focusing on new blog content. Critical issues always take priority over new page creation.
 

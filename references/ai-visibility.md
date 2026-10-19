@@ -19,7 +19,7 @@ This layer annotates every page and blog post with seven visibility signals. App
 
 **Rules:**
 - Answers must be self-contained (make sense without surrounding context)
-- Answers must be 40–80 words — short enough for AI to extract directly
+- Answers must be 40–65 words — short enough for AI to extract directly (content-planning.md's Answer Rules ceiling: homepage FAQ 40–55, FAQ page 50–65, never exceed 65 in any answer)
 - Do not mark up "fake" FAQs — only questions that are genuinely in the keyword data
 - One FAQPage schema block per page (combine all Q&As into one block)
 

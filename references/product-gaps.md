@@ -8,7 +8,7 @@ A product gap exists when:
 3. **High-volume commercial cluster** (e.g. "best 48V electric dirt bikes") has no corresponding category to send readers to
 4. **Accessory keyword clusters** appear with no corresponding accessory pages or products
 
-Gaps are separated into four types:
+Gaps are separated into five types — Accessory is its own peer type, not a sub-case of Product Gap, matching how `output-formats.md`'s template counts and sections it separately:
 
 ### Brand Gap
 Keywords: brand name + product type, brand name + model number, brand name + "review"
@@ -24,6 +24,11 @@ Action: Source and stock the product type; propose URL and page structure
 Keywords: category-level term + commercial/transactional intent, "best [category]", "[category] for sale"
 Signal: A whole product category exists in search demand but has no organisational home on your site
 Action: Create the category page; identify which existing products belong there
+
+### Accessory Gap
+Keywords: "[product type] [part/accessory]", "[product type] upgrade", "[product type] replacement [part]", "[product type] kit" — see § Accessory Gap Detection below for the full pattern list
+Signal: An accessory/part/bundle a buyer of the core product would reasonably want has no matching page or product on the site
+Action: Source and stock the accessory; propose URL and page structure, grouped by accessory type
 
 ### Competitor Gap
 Keywords: any query where a named competitor visibly ranks and this site doesn't have a comparable page
@@ -52,7 +57,7 @@ Competitor-sourced keywords are not exempt from Phase 1's volume floor or Phase 
 
 ### Step 3 — Classify and route
 - **Competitor is outranking on a keyword this site is close to targeting anyway** → strengthen the relevant existing/planned page's secondary keyword list
-- **Competitor has a whole page type this site lacks** (a buying guide, a comparison hub, a specific product line) → route through Brand/Product/Category Gap as normal, tagged with which competitor's coverage prompted it
+- **Competitor has a whole page type this site lacks** (a buying guide, a comparison hub, a specific product line, an accessory range) → route through Brand/Product/Category/Accessory Gap as normal, tagged with which competitor's coverage prompted it
 - **Competitor's advantage is a brand/model this site genuinely doesn't stock** → Brand Gap, same as any other brand gap, but note the competitive pressure in the proposal's Opportunity section
 
 ### Output
@@ -62,7 +67,7 @@ Competitor-sourced keywords are not exempt from Phase 1's volume floor or Phase 
 **Competitor:** [competitor domain]
 **Competitor's Ranking Keyword(s):** [keyword] (Vol: X, KD: X, competitor position: X)
 **This Site's Current Coverage:** None / Partial — [why it's a real gap]
-**Routes To:** Brand Gap / Product Gap / Category Gap / Existing Page Strengthening — [which, and why]
+**Routes To:** Brand Gap / Product Gap / Category Gap / Accessory Gap / Existing Page Strengthening — [which, and why]
 
 [If routing to a new gap proposal, use the Full Proposal Template above and tag it "Competitor Gap" in the Gap Type field]
 ```
@@ -134,7 +139,7 @@ For every gap identified, output:
 ```markdown
 ## [Gap Type]: [Gap Name]
 
-**Gap Type:** Brand Gap / Product Gap / Category Gap / Competitor Gap
+**Gap Type:** Brand Gap / Product Gap / Category Gap / Accessory Gap / Competitor Gap
 **Priority:** T1 / T2 (based on primary keyword tier)
 **Demand Signal:** [combined volume of all cluster keywords]
 **CPC Signal:** [average CPC across cluster — high/medium/low]

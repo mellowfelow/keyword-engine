@@ -1,6 +1,6 @@
 ---
 name: keyword-engine
-description: Keyword strategy and audit skill for ecommerce sites. Two modes — MODE A (pre-build): paste keywords + site URL to produce strategy docs for WebForge; MODE B (post-build audit): site URL only, crawls live site, flags drift/cannibalisation/orphans, updates keyword-map.md and keyword-cluster.txt. Use for: keyword research, clustering, mapping, blog planning, FAQ banks, product gaps, content calendar, SEO/GEO/AEO strategy, AI visibility, keyword audits, cannibalisation checks, or any keyword-related task. Do NOT trigger when WebForge is mid-build implementing an existing keyword-map.md.
+description: Keyword strategy and audit skill for ecommerce sites. Two modes — MODE A (pre-build): paste keywords + site URL to produce strategy docs for WebForge; MODE B (post-build audit): site URL only, crawls live site, flags drift/cannibalisation/orphans, updates keyword-map.md and blog-plan.md. Use for: keyword research, clustering, mapping, blog planning, FAQ banks, product gaps, content calendar, SEO/GEO/AEO strategy, AI visibility, keyword audits, cannibalisation checks, or any keyword-related task. Do NOT trigger when WebForge is mid-build implementing an existing keyword-map.md.
 ---
 
 # Keyword Engine
@@ -12,8 +12,8 @@ MODE A — STRATEGY (pre-build)          MODE B — AUDIT (post-build)
 ─────────────────────────────          ──────────────────────────────
 Input: keyword paste + site URL        Input: site URL only
 Runs: before WebForge build            Runs: after WebForge build, manually
-Output: 5 strategy docs in docs/       Output: updated keyword-map.md +
-                                               keyword-cluster.txt +
+Output: 4 strategy docs in docs/       Output: updated keyword-map.md +
+                                               blog-plan.md +
                                                in-chat audit summary
 ```
 
@@ -23,7 +23,7 @@ Output: 5 strategy docs in docs/       Output: updated keyword-map.md +
 
 ## MODE A — Strategy Pipeline
 
-**Runs before WebForge.** Produces the five strategy documents WebForge consumes to build pages, blog posts, and FAQ sections with maximum on-page SEO from day one.
+**Runs before WebForge.** Produces the four strategy documents WebForge consumes to build pages, blog posts, and FAQ sections with maximum on-page SEO from day one.
 
 ```
 INPUTS: raw keyword paste + site URL
@@ -38,7 +38,7 @@ PHASE 7 → FAQ Bank Generation
 PHASE 8 → Product Gap Analysis
 PHASE 9 → AI/GEO/AEO Visibility Layer
     ↓
-OUTPUTS: 5 documents + in-chat summary
+OUTPUTS: 4 documents + in-chat summary
 ```
 
 Reference files for MODE A:
@@ -62,16 +62,16 @@ AUDIT PHASE 1 → Site Crawl & Keyword Extraction
 AUDIT PHASE 2 → Implementation Check (vs keyword-map.md plan)
 AUDIT PHASE 3 → Cannibalisation Scan
 AUDIT PHASE 4 → Orphan Page Detection
-AUDIT PHASE 5 → Blog Cluster Status Check
+AUDIT PHASE 5 → Blog Post Status Check
 AUDIT PHASE 6 → Strategy Gap Analysis (new opportunities)
 AUDIT PHASE 7 → AI/GEO Signal Check
 AUDIT PHASE 8 → Performance Validation (live GSC via in-app browser, falls back to export)
     ↓
-OUTPUTS: updated keyword-map.md + keyword-cluster.txt + in-chat audit summary
+OUTPUTS: updated keyword-map.md + blog-plan.md + in-chat audit summary
 ```
 
 → Read `references/audit-mode.md` for full audit phase instructions, including Phase 8 (Performance Validation — reads live GSC data via the in-app browser's logged-in session by default).
-→ Read `references/output-formats.md` § Audit Output for update templates.
+→ Read `references/output-formats.md` § MODE B Audit Output Format for update templates.
 
 ---
 
@@ -86,6 +86,8 @@ OUTPUTS: updated keyword-map.md + keyword-cluster.txt + in-chat audit summary
 
 **MODE B startup — URL only:**
 - SITE URL is all that's needed. Skill crawls the live site, extracts what's there, and builds its own current keyword picture from scratch. No docs or keyword paste required.
+- **EXISTING DOCS (optional):** if `keyword-map.md` and/or `blog-plan.md` are pasted or already in context, the audit compares against them directly instead of working purely from the reverse-engineered crawl — richer findings (planned-vs-live drift, Guarantee Flag checks, launch-batch-floor coverage) become possible. Skip cleanly if not provided; the audit still runs from the crawl alone.
+- **SEMRUSH/PLATFORM LINK (optional):** if a refreshed link is provided this session, the audit can re-check a live primary keyword's KD against the ≤28 ceiling and catch difficulty drift. Without it, skip that specific check — never assume or estimate KD without the actual data, same discipline Phase 1 applies to every other filter in this skill: real data or skip, never a guess.
 - **GSC PERFORMANCE DATA (Audit Phase 8):** the skill reads this live, via the in-app browser's already-logged-in Search Console session — no paste needed, no API used. Navigate to `search.google.com/search-console`, match the property by domain, and pull the Performance report (Queries + Pages, Compare-to-previous-period on) directly. Only fall back to asking for a manual CSV export if the property isn't accessible in the logged-in account or the browser session isn't available. If neither works, skip Phase 8 cleanly and say so — never block the rest of the audit on it.
 
 **One site = one session.** Never mix keyword sets across different site domains.
@@ -100,16 +102,16 @@ Run these checks in order on the raw paste:
 
 1. **Niche relevance check** — drop any keyword with zero semantic connection to the site's niche
 2. **Volume floor** — **intent-sensitive, not flat**: Transactional/Question 20+, Commercial/Informational 50+, Navigational no floor (see `references/filter-and-cluster.md` for why a flat floor throws away real money)
-3. **KD ceiling** — calibrated to SEMrush KD%: drop anything KD 55+ entirely; move KD 35–54 to "Supporting Pool" (not droppable but not primary) — tightened from the original release since SEMrush KD% under-represents true difficulty for smaller sites
+3. **KD ceiling** — tightened: primaries are hard-capped at KD ≤28 (nothing above 28 is ever a primary, no exceptions). Secondaries/LSI default to the same ≤28, extending into a 29–35 fallback band only when genuinely needed to hit the secondary minimum. **Nothing above KD 35 is used anywhere, under any exception** — no Supporting Pool, no revisit-later appendix. Drop it, full stop, regardless of volume.
 4. **Deduplication** — remove exact duplicates; merge near-duplicates (singular/plural, spelling variants) keeping the higher-volume form
 5. **Brand contamination check** — flag competitor brand names; move to a separate "Competitor Brands" list for comparison content only, never product pages
 6. **Geography tag** — flag US vs UK spelling/intent variants (e.g. "dirt bike" vs "off-road motorbike") — apply site market filter, drop the wrong market's variants
 7. **Cannibalisation pre-check** — flag any two keywords that would logically target the same page URL
 
 Output after Phase 1:
-- ✅ Primary Pool (KD 0–34, volume per the intent-sensitive floor above)
-- 🟡 Supporting Pool (KD 35–54, same floor)
-- 🔴 Dropped List (below the applicable floor or KD 55+) — show count only
+- ✅ Primary Pool (KD ≤28, volume per the intent-sensitive floor above)
+- 🟡 Secondary Fallback Pool (KD 29–35 — secondary/LSI use only, and only when needed to hit the secondary minimum; never a primary)
+- 🔴 Dropped List (below the applicable floor, or KD above 35 — no exception) — show count only
 - 🏷️ Competitor Brand List — held for comparison content
 
 ---
@@ -118,7 +120,7 @@ Output after Phase 1:
 
 → Read `references/filter-and-cluster.md` § Intent Rules
 
-Classify every keyword in the Primary and Supporting pools:
+Classify every keyword in the Primary Pool and the Secondary Fallback Pool:
 
 | Intent | Signals | Maps To |
 |--------|---------|---------|
@@ -126,11 +128,11 @@ Classify every keyword in the Primary and Supporting pools:
 | **Commercial** | best, top, review, vs, recommended, compare, worth it, pros cons | Blog posts (comparison/review), category pages |
 | **Informational** | how, what, why, guide, tips, explained, tutorial, learn | Blog posts (guides), pillar pages |
 | **Question** | does, can I, is it, how long, will, should, do I need | FAQ bank entries — homepage, FAQ page, AND a page-specific mini-FAQ on any mapped page with question-intent keywords in its cluster (Phase 7) |
-| **Navigational** | brand name + model | Brand hub pages (anchored on Navigational primaries by default), individual product pages |
+| **Navigational** | brand name + model | Individual Brand pages (anchored on Navigational primaries by default — not to be confused with the separate aggregator "Brand Hub" page, Phase 5), individual product pages |
 
 **Priority order for page assignment:** Transactional → Commercial → Informational → Question → Navigational. When a keyword matches more than one category's signals (e.g. "how much does it cost" = Transactional + Question), the higher-priority category always wins — never split the difference. Worked examples in `references/filter-and-cluster.md`.
 
-**Blog posts are anchored on Informational primaries by default** (Commercial also routes there for comparison/review posts, but the pillar/guide backbone should be Informational-first — under-serving this misses easy, less-contested ranking opportunities).
+**Blog anchoring — reversed, confirmed override of the old Transactional-on-blog ban.** A missing page has three causes, not two: a true orphan Transactional keyword (vol 20–99, never clustered) is blog-eligible (Reason A); a true orphan Informational keyword (never clustered, vol <200) is also blog-eligible, as last-resort filler only (Reason A2); real volume with no matching product/category routes to a Gap Flag instead, never to blog, regardless of volume (Reason B). Sourcing order is strict across all blog-eligible clusters: **Transactional (Reason A) → Commercial → Informational (including Reason A2)**, with Informational never the backbone. Full carve-out and routing detail in `references/page-mapping.md` §7.
 
 **Local intent (situational — only sites with a physical location/service area):** "near me" and city/region-modified queries route to a dedicated location page, never bolted onto the general category page as a secondary. Skip entirely for a ship-anywhere ecommerce site. Full rules in `references/filter-and-cluster.md` § Local Intent Layer.
 
@@ -145,16 +147,18 @@ Score every keyword in the Primary Pool with a Priority Tier (KD bands calibrate
 | Tier | KD | Time to Rank | Action |
 |------|-----|-------------|--------|
 | 🥇 **T1 — Quick Win** | 0–19 | 1–3 months | Build dedicated pages first |
-| 🥈 **T2 — Worth Targeting** | 20–34 | 3–6 months | Build pages, good content required |
-| 🟡 **T3 — Supporting** | 35–54 | Never primary | Use as LSI/secondary on existing pages only |
+| 🥈 **T2 — Worth Targeting** | 20–28 | 2–4 months | Build pages, good content required |
+| 🟡 **Secondary Fallback (no Tier label)** | 29–35 | N/A — never a primary | Secondary/LSI only, used only when needed to hit the secondary minimum |
+
+Tier (T1/T2) applies to the **primary keyword only** — nothing above KD 28 is ever a primary. A secondary pulled from the 29–35 fallback band carries no Tier label of its own.
 
 (Volume floor is the intent-sensitive one from Phase 1 — 20+ for Transactional/Question, 50+ for Commercial/Informational.)
 
-**Never build a new page for a T3 keyword.** Use T3 keywords to enrich copy, meta descriptions, image alt text, FAQ answers, and body content on pages that already exist for T1/T2 keywords.
+**Never build a new page for a keyword above KD 28.** Keywords in the 29–35 fallback band are secondary/LSI use only, on pages that already exist for a qualifying T1/T2 primary — never a dedicated page of their own, and never used at all above KD 35.
 
 **Opportunity Score** — within a tier, or when picking which keyword becomes a cluster's primary, rank by `((Volume × Intent Weight) / 10) − (KD × 2) + (CPC × 3)`, not volume/KD alone. This folds CPC in as a commercial-value signal so genuinely valuable keywords win, not just easy ones. Full formula and intent weights in `references/filter-and-cluster.md`.
 
-**High-volume outlier rule:** If a keyword is KD 35–54 but Vol 2000+, flag it in a "Revisit in 6 months" section at the end of `keyword-map.md`. Do not assign it now.
+**No high-volume outlier exception — removed.** A keyword above KD 35 is dropped regardless of volume, even at Vol 2000+. There is no "Revisit in 6 months" section — chasing a keyword that takes real authority to rank for isn't worth it even when tempting, high-volume data is attached.
 
 **Low-KD Rescue (the mirror case):** a Transactional/Commercial keyword below the volume floor but **KD ≤ 15** isn't dropped — it's an easy, real, scored win. Route it to the Secondary Pool (never a dedicated page) and prioritize it first when supplementing a thin cluster's secondaries in Phase 4. **KD ≤ 10** is the strongest rescue tier — flag distinctly. See `references/filter-and-cluster.md`.
 
@@ -178,8 +182,8 @@ Group keywords into clusters. Each cluster = one URL.
 - Minimum 2 keywords per cluster at the raw-clustering stage (orphan singles → held for review)
 - Maximum 15 keywords per cluster (split if larger)
 - Each cluster gets exactly 1 primary keyword (highest **Opportunity Score** — not raw Vol/KD alone, see Phase 3)
-- **⭐ Minimum 5, maximum 8 secondary keywords per cluster — this is a floor, not a target.** Every page-mapped cluster must reach 1 primary + 5+ secondary before the map is finalized (homepage is the one lighter exception — see Phase 5).
-- **Supplementation when a cluster is thin:** if a site-search export was provided, mine it first (real first-party query data beats everything else). Then broaden within the existing Vol/KD pools, then mine a competitor SEMrush export if one was provided (real Vol/KD/CPC data from the competitor's ranking keywords, scored normally like the site's own data), then pull Google related searches (`web_fetch` the live SERP), then generate transactional modifiers (`buy [X]`, `[X] for sale`, `cheap [X]`, `[X] price`, `[X] near me`, etc.) matched to the cluster's actual intent. Site-search, related-search, and generated keywords have no real Vol/KD/CPC and **inherit the cluster's Tier**; pool-broadening and competitor-sourced keywords carry real data and are scored normally. All get labelled `[site-search]`, `[competitor]`, `[related-search]`, or `[generated]` in the output so the source stays transparent. Never pad with off-topic keywords just to hit the count — ship an honest "3/5, niche too narrow" instead. Full detail in `references/filter-and-cluster.md`.
+- **⭐ Minimum 5, maximum 8 secondary keywords per cluster — this is a floor, not a target.** Every page-mapped cluster must reach 1 primary + 5+ secondary before the map is finalized (homepage AND the top-level shop page are the two lighter exceptions, treated identically — see Phase 5).
+- **Supplementation when a cluster is thin:** if a site-search export was provided, mine it first (real first-party query data beats everything else). Then broaden within the existing Vol/KD pools, then mine a competitor SEMrush export if one was provided (real Vol/KD/CPC data from the competitor's ranking keywords, scored normally like the site's own data), then pull Google related searches (`web_fetch` the live SERP), then generate transactional modifiers (`buy [X]`, `[X] for sale`, `cheap [X]`, `[X] price`, `[X] near me`, etc.) matched to the cluster's actual intent. Site-search, related-search, and generated keywords have no real Vol/KD/CPC and **inherit the cluster's Tier** as a labeling convenience; pool-broadening and competitor-sourced keywords carry real KD data and follow Phase 3's actual Tier rule from that KD (no Tier label at all if it lands in the 29–35 fallback band — real data doesn't earn an exception). All get labelled `[site-search]`, `[competitor]`, `[related-search]`, or `[generated]` in the output so the source stays transparent. Never pad with off-topic keywords just to hit the count — ship an honest "3/5, niche too narrow" instead. Full detail in `references/filter-and-cluster.md`.
 - Remaining cluster keywords = LSI/supporting role
 
 **Cannibalisation enforcement — three levels, not just URLs:**
@@ -198,26 +202,28 @@ Group keywords into clusters. Each cluster = one URL.
 
 **If page list pasted:** Use that directly.
 
-Map each cluster to a page using this priority:
+Map each cluster to a page using this priority (full detail, including page types not condensed here, in `references/page-mapping.md`):
 
 ```
 1. Existing product page → assign if product match is strong
-2. Existing category/brand page → assign if cluster is category-level
-3. Homepage → 1 primary + 3-5 secondary only (lighter than every other page — see references/page-mapping.md for why)
-4. New product page needed → flag as gap
-5. New blog post needed → flag for Phase 6
-6. New category page needed → flag as gap
-7. Programmatic pattern set → for catalogs with genuine combinatorial structure (Brand × Category, Size × Type, etc.) at real scale — flag as a page-template set, not individual gaps (see references/page-mapping.md § Programmatic Pattern Pages)
+2. Existing category/brand page → assign if cluster is category-level (individual brand pages anchor on Navigational)
+3. Homepage AND top-level shop page → 1 primary + 3-5 secondary only, both equally (lighter than every other page — see references/page-mapping.md for why)
+4. Existing blog post → assign to improve it, if informational/commercial and a directly relevant post exists
+5. New product page needed → flag as gap
+6. New category page needed → flag as gap (cascades into starter-product research once approved)
+7. New blog post needed → flag for Phase 6, under the Reason A/B split (see Phase 2 — only true orphans route to blog; real-volume gaps always flag instead)
+8. Programmatic pattern set → for catalogs with genuine combinatorial structure (Brand × Category, Size × Type, etc.) at real scale — flag as a page-template set, not individual gaps (see references/page-mapping.md § Programmatic Pattern Pages)
+9. Other guaranteed/conditional page types not listed above — FAQ page (guaranteed default), Sale/Deals, Best Sellers/New Arrivals, Compare, Wholesale (all conditional), Brand Hub (3+ brands), utility pages — see references/page-mapping.md § Other Guaranteed/Conditional Page Types for placement rules
 ```
 
-**Before finalizing any assignment (except homepage): run the Secondary Keyword Supplementation check.** If the cluster has fewer than 5 secondary keywords, supplement per Phase 4 before writing the page's entry.
+**Before finalizing any assignment (except homepage and the shop page): run the Secondary Keyword Supplementation check.** If the cluster has fewer than 5 secondary keywords, supplement per Phase 4 before writing the page's entry.
 
 **Mapping output per cluster:**
 - Assigned URL (existing or proposed)
-- Page type (product / category / brand / homepage / blog / new)
+- Page type (product / category / individual brand / Brand Hub / homepage / shop / blog / Sale / Best Sellers / New Arrivals / Compare / Wholesale / FAQ / utility / new)
 - Primary keyword (highest Opportunity Score)
-- Secondary keywords — **5+ minimum (homepage: 3-5)**, each tagged with its source if supplemented (`[site-search]` / `[competitor]` / `[related-search]` / `[generated]`)
-- LSI/supporting keywords (T3 pool contributions)
+- Secondary keywords — **5+ minimum (homepage and shop page: 3-5)**, each tagged with its source if supplemented (`[site-search]` / `[competitor]` / `[related-search]` / `[generated]`)
+- LSI/supporting keywords (secondary/LSI pool, including any pulled from the 29–35 fallback band)
 - On-page requirements: title tag formula, H1 formula, meta description formula, image alt text note
 
 ---
@@ -226,28 +232,28 @@ Map each cluster to a page using this priority:
 
 → Read `references/content-planning.md` § Blog Planning
 
-All clusters mapped to "new blog post" get a full brief. Maximise the number of posts — every viable cluster gets one.
+All clusters mapped to "new blog post" get a full brief, under the Reason A/B split (page-mapping.md) that governs which clusters are even blog-eligible — Reason-A Transactional orphans (vol 20–99) and Commercial clusters, never Reason-B (those route to a Gap Flag instead). Maximise the number of posts within that — every viable Reason-A/Commercial cluster gets one, with Informational sourced last as filler.
 
-**Minimum 20 fully-briefed posts, day one.** Every keyword-map session must deliver at least 20 complete blog briefs ready to build immediately — not a placeholder list, not "more available on request." If the natural cluster set falls short of 20, expand it before delivery, real data first: broaden the Supporting Pool (KD 35-54) for viable informational/commercial angles, mine a site-search export for topic angles if one was provided, mine a competitor export for content gaps if one was provided, then mine the site's own catalog for comparison/accessory/buying-guide angles, and finally pull topic ideas from Google related-search mining. Never pad the count with thin, near-duplicate topics just to hit the number — if genuine expansion can't reach 20, say so explicitly and show the real number with the reasoning, rather than silently under-delivering or manufacturing filler. See `references/content-planning.md` § Minimum 20 Fully-Briefed Posts for the full floor + expansion strategy.
+**Launch batch floor, tiered by niche breadth — not a flat 20.** Every session must deliver a complete launch batch, ready to build immediately, sized per the niche tier (25–30 Micro/Small, up to 100+ Massive — see `references/content-planning.md` § Launch Batch Floor for the full sizing table), toward a 1000+ overall target where the niche supports it. If the natural cluster set falls short of the tier's target, expand it before delivery, real data first and Transactional/Commercial before Informational: broaden Reason-A/Commercial coverage, mine a site-search export for topic angles if one was provided, mine a competitor export for content gaps if one was provided, then mine the site's own catalog for comparison/accessory/buying-guide angles, and finally pull topic ideas from Google related-search mining. Never pad the count with thin, near-duplicate topics just to hit the target — if genuine expansion can't reach it, say so explicitly and show the real number with the reasoning, rather than silently under-delivering or manufacturing filler. See `references/content-planning.md` § Launch Batch Floor for the full floor + expansion strategy.
 
 **Blog post brief includes:**
 - Post title (H1) — keyword-first, click-worthy
 - Meta description (150–160 chars, includes primary keyword)
 - Target primary keyword + secondary keywords
-- Word count recommendation (based on cluster size: 3–5 kw → 1000–1500w; 6–10 kw → 1500–2500w; 10+ kw → 3000w+ pillar)
-- Content type: guide / comparison / listicle / review / explainer / roundup
+- Word count recommendation, by cluster size (see `references/content-planning.md` § Word Count by Cluster Size for the authoritative table): 2–4 kw → 800–1200w; 5–8 kw → 1200–2000w; 9–12 kw → 2000–3000w; 13+ kw → 3000–5000w pillar
+- Content type: guide / comparison / listicle / review / explainer / roundup / care & maintenance guide
 - Proposed URL slug
 - H2/H3 outline (full section structure)
 - Internal links: which existing pages to link to + which pages should link to this post
 - CTA recommendation (what should the reader do next — buy, browse category, contact)
 - Suggested images: number, type (product shot / lifestyle / diagram / infographic), alt text formulas
-- Schema type: Article / HowTo / FAQPage / Product / Review
+- Schema type: Article / HowTo / FAQPage / Review
 - FAQ section: 3–5 questions derived from question-intent keywords in the cluster
-- Funnel position: Top / Middle / Bottom of funnel
+- Funnel position: Top / Middle / Bottom / Loyalty (post-purchase — a fourth, additive category, sourced last once Top/Middle/Bottom are satisfied, not a separate quota)
 
 **Pillar + Cluster architecture:** Identify the top 3–5 highest-volume informational topics. These become pillar posts (3000w+). All related cluster posts link back to the relevant pillar.
 
-**Content calendar:** Sequence blog posts by Tier (T1 first), then by funnel position (Bottom → Middle → Top). Output a 12-week publishing schedule.
+**Content calendar:** Sequence blog posts by Tier (T1 first), then by funnel position (Bottom → Middle → Top), with Loyalty content filled in last once Bottom/Middle/Top are satisfied — into the backlog, not a dedicated week block. Output a 12-week publishing schedule.
 
 ---
 
@@ -260,16 +266,16 @@ All question-intent keywords + question signals from across all clusters feed in
 **FAQ Homepage (6–8 questions):**
 - Highest-impact questions only
 - Prioritise questions about buying, pricing, shipping, product types
-- Each answer: 40–60 words, conversational, includes primary keyword naturally
+- Each answer: 40–55 words, conversational, includes primary keyword naturally
 - Includes JSON-LD FAQPage schema block
 
 **FAQ Page (full bank, grouped by theme):**
 - All question keywords organised into thematic sections
-- Each answer: 50–80 words, includes 1–2 supporting keywords naturally
+- Each answer: 50–65 words, includes 1–2 supporting keywords naturally
 - Speakable schema flagged on top answers
 - Each answer optimised for featured snippet extraction
 
-**⭐ Page-Level FAQ (every mapped page, not just homepage + FAQ page):** a 2–4 question mini-FAQ on every product/category/brand-hub/blog page that has question-intent keywords in its cluster (or an obvious buyer question even without one — use judgment, don't invent filler). This is the biggest lever for organic keyword coverage in this phase — each page-level FAQ answer is unique indexable content that lets one page compete for query variations it otherwise can't touch, without diluting the page's primary-keyword focus. Skip only when a cluster genuinely has nothing to draw on. Its own FAQPage schema instance per page. Full rules in `references/content-planning.md` § Page-Level FAQ.
+**⭐ Page-Level FAQ (every mapped page, not just homepage + FAQ page):** a 2–4 question mini-FAQ on every product/category/individual-brand/Brand-Hub/shop/blog/active-Sale/Best-Sellers/New-Arrivals/Compare/Wholesale page that has question-intent keywords in its cluster (or an obvious buyer question even without one — use judgment, don't invent filler). This is the biggest lever for organic keyword coverage in this phase — each page-level FAQ answer is unique indexable content that lets one page compete for query variations it otherwise can't touch, without diluting the page's primary-keyword focus. Skip only when a cluster genuinely has nothing to draw on. Its own FAQPage schema instance per page. Full rules in `references/content-planning.md` § Page-Level FAQ.
 
 **FAQ rules:**
 - Never answer a question with "it depends" — always give a concrete answer
@@ -292,10 +298,11 @@ Scan all clusters. Flag any transactional or commercial cluster where no existin
 - Suggested URL (e.g. `/brands/sur-ron/` or `/electric-dirt-bikes/youth/`)
 - Primary keyword to target (highest Opportunity Score)
 - **Secondary keywords for that page — fully assembled to the 5+ floor, not just listed.** Run every gap through the same Secondary Keyword Selection Rules + Supplementation used for live pages (`references/filter-and-cluster.md`) before it's written into product-gaps.md. **The point of this: when the client decides to build the gap, the keyword package is already complete — no extra research pass, no gap between the decision and the build.**
+- **Recommended Price** — a single number, not a range, sourced from competitor pricing research. Re-check before approval if competitor pricing has moved since this was generated.
 - Page-level FAQ candidates, pre-drafted for the same reason (2–4 Q&As where the cluster supports it)
 - Priority tier (T1 gaps first)
 
-**Separate brand gap vs product gap vs category gap clearly.**
+**Five gap types, kept distinct: Brand, Product, Category, Accessory, Competitor.** Don't collapse Accessory gaps (accessory/part patterns with no matching page) into generic Product gaps — `product-gaps.md`'s own output tracks all five separately.
 
 **Competitor Gap (optional — requires a competitor SEMrush export):** if the user provides a competitor's SEMrush Organic Research/Keyword Gap export, cross-reference it against this site's Primary Pool and page inventory to find keywords the competitor visibly ranks for that this site has no coverage for at all. No API access — export only, same as the site's own keyword data. Skip cleanly if not provided. Full workflow in `references/product-gaps.md` § Competitor Gap Analysis.
 
@@ -313,7 +320,7 @@ Run this layer across all outputs — it annotates the keyword map and content p
 
 1. **FAQ Schema** — every page with 2+ question-intent keywords in its cluster gets a FAQPage JSON-LD block planned
 2. **Speakable Schema** — flag the single best FAQ answer on each page for `speakable` schema (voice + AI assistant readability)
-3. **Entity Coverage** — check: does each page clearly name the product entity, brand entity, and (where relevant) location entity? Flag gaps.
+3. **Entity Coverage** — check: does each page clearly name the product entity, brand entity, and (where relevant) location entity? Flag gaps. The homepage's and shop page's own primary+secondary keywords are the designated source for the Organization schema's `knowsAbout[]` array — no separate tracking, just a read off what Phase 5 already assigned to those two pages.
 4. **Featured Snippet Hooks** — every informational/question keyword cluster gets a "definition hook": a 1–2 sentence plain-language answer in the first 150 words of the page
 5. **llms.txt Priority Map** — at the end of the session, output a prioritised list of URLs to include in `llms.txt`, ranked by topical authority and AI answer relevance
 6. **SERP Feature Targeting** — check the live SERP for the primary keyword (snippet/PAA/image pack/shopping pack) and structure the page to match what's actually showing, instead of one generic format for every page
@@ -325,21 +332,18 @@ Run this layer across all outputs — it annotates the keyword map and content p
 
 ## Output Documents
 
-Produce all five documents at the end of every session.
+Produce all four documents at the end of every session.
 → See `references/output-formats.md` for exact templates.
 
 | Document | WebForge Uses It For | Contents |
 |----------|---------------------|---------|
 | `keyword-map.md` | Page meta, H1s, on-page copy | Full keyword allocation table — every keyword assigned to a URL with tier, intent, role |
-| `keyword-cluster.txt` | Blog topic queue | Same cluster data in flat, WebForge-readable format — the blog post build queue |
-| `blog-plan.md` | Blog post builds — titles, outlines, schema, internal links | Full brief for every planned blog post + 12-week content calendar |
+| `blog-plan.md` | Blog post builds — titles, outlines, schema, internal links; also the blog build queue | Full brief for every planned blog post + 12-week content calendar. Each post carries a `Pending`/`Built` Status field — this is the blog post build queue now; there is no separate `keyword-cluster.txt` file. |
 | `faq-bank.md` | Homepage FAQ section + FAQ page build + FAQPage schema | All FAQ Q&As with JSON-LD schema blocks, grouped by theme |
 | `product-gaps.md` | Product/category page creation decisions | All product/category/brand gap proposals with full demand analysis |
 
-**⚠️ WebForge Rule 12 — all five documents go in `docs/` only.**
+**⚠️ WebForge Rule 12 — all four documents go in `docs/` only.**
 Never place them in `public/` or include them in any deploy ZIP. These are internal strategy files — putting them on the live site hands competitors the entire plan. WebForge enforces this at crosscheck.
-
-**`keyword-cluster.txt` companion file:** Always produce this alongside `keyword-map.md`. It is the same cluster data in the flat format WebForge's project instructions reference. WebForge reads `docs/keyword-cluster.txt` to pull the next unused blog cluster for each new post.
 
 **In-chat summary after each session:**
 - Total keywords processed
