@@ -76,11 +76,11 @@ is the operational "how."
   the single most common failure mode. Never let it recur silently.
 - This is retroactive and forward-looking: `niche-taxonomy.md`'s two-layer
   Quality Control, the keyword-research files' own dedicated audit layers
-  (`keyword-map.md`'s and `product-gaps.md`'s schema-level audits,
-  `semrush-workflow.md`'s operational audit, `ai-visibility.md`'s signal
-  audit), and Mode B's own dedicated audit layer (`audit-mode.md`) all
-  comply. Every future aspect added to this skill inherits this
-  requirement by default — never an afterthought bolted on at the end.
+  (`output-formats.md`'s `keyword-map.md` schema audit, `product-gaps.md`'s
+  own gap-type audit, `semrush-workflow.md`'s operational audit), and
+  Mode B's own dedicated audit layer (`audit-mode.md`) all comply. Every
+  future aspect added to this skill inherits this requirement by default —
+  never an afterthought bolted on at the end.
 - A genuinely airtight pass means re-reading the *whole* aspect against
   *every* rule it contains, not sampling a few obvious spots.
 
@@ -134,11 +134,12 @@ is the operational "how."
 of all of them, unchanged, as an orchestration layer — it never restates
 what any checklist checks, only what happens with the result.** Applies to
 every aspect this skill has: `niche-taxonomy.md`, every phase of keyword
-research, every one of the four output documents' dedicated audit layers,
-`semrush-workflow.md`'s own dedicated layer, `ai-visibility.md`'s signal
-audit, and Mode B's own dedicated audit layer in `audit-mode.md`. One
-retry/gate philosophy, confirmed in practice across both Mode A and Mode B,
-not two parallel ones invented separately for each.
+research, `output-formats.md`'s and `product-gaps.md`'s own dedicated
+audit layers, `semrush-workflow.md`'s own dedicated layer,
+`ai-visibility.md`'s own dedicated layer, and Mode B's own dedicated audit
+layer in `audit-mode.md`. One retry/gate philosophy, confirmed in practice
+across both Mode A and Mode B, not two parallel ones invented separately
+for each.
 
 ### A. Standardized audit result shape
 

@@ -74,6 +74,25 @@ All four documents are produced at the end of every keyword engine session. They
 | [keyword] | [v] | [k] | Single keyword, no cluster match |
 ```
 
+### Quality Control — `keyword-map.md`'s own dedicated audit layer
+
+Governed by Rule 5 (`core-rules.md`). The schema above has enough distinct fields, and enough ways one of them can be silently skipped, to warrant its own checklist rather than relying on the general Mode A Quality Control alone.
+
+**Pre-ship checklist (run before `keyword-map.md` ships, every session):**
+1. Every mapped page has a **Guarantee Flag** value, and it's the correct one — Yes only for a page actually built because a Guarantee required it, Active-Conditional only for a currently-live Sale/Best Sellers/New Arrivals/Compare/Wholesale trigger, never left blank or defaulted to No.
+2. **Intent-Chain-Used** records which intent genuinely won the tie-break for that page's primary — not assumed from the page type.
+3. Every page has a **Journey Stage** value, and its **Internal Links OUT/IN** actually reflect the bidirectional linking requirement (`page-mapping.md` § Journey-Stage Internal Linking) — not left as a single-direction note or omitted.
+4. **FAQ Schema = Yes** pages all carry an actual **Page-Level FAQ** field with 2–4 Q&As — never Yes with no content, never invented filler where the cluster has nothing to draw on.
+5. **Secondary-Floor Compliance** in the header matches what the Per-Page sections actually show — every page under the 5+ floor (3+ homepage/shop) is both counted in the header *and* has its shortfall stated honestly in its own Per-Page entry, not just one or the other.
+6. Every supplemented secondary carries its source tag (`[site-search]`/`[competitor]`/`[related-search]`/`[generated]`); untagged keywords are genuinely export-backed, not supplemented keywords with a dropped tag.
+7. **SERP Feature** and **WebForge Schema Type** are filled per page, not left as a generic default repeated everywhere — a page with no detected SERP feature says "None," it isn't just skipped.
+8. The Used-Keywords Registry (Rule 5's Final Cross-Cutting Gate depends on this) was actually checked page-by-page as pages were added, not reconstructed from the finished table after the fact.
+
+**Re-audit (later, same trigger pattern as every other Layer 2 in this skill):**
+- Has a page's Guarantee Flag drifted from reality (an Active-Conditional trigger ended, a new one started)? `audit-mode.md`'s Guarantee Flag check is the live-site version of this — confirm it's actually catching drift, not just checking presence.
+- Has any page's Journey Stage or linking gone stale as new pages were added after the original mapping? New pages need their forward/back links retrofitted, not left orphaned from the link graph.
+- Has a Reason-A or Reason-A2 blog-routed keyword grown past its orphan threshold (vol 100/200) since this was last generated? Promote it out of blog if so.
+
 ---
 
 ## Document 2: blog-plan.md

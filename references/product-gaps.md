@@ -203,3 +203,23 @@ Create a "[Competitor Brand] alternatives" page if search volume is high enough
 - Use a competitor brand name as the primary keyword on a product page
 - Claim to sell a product you don't carry
 - Create pages that are deceptive about brand affiliation
+
+---
+
+## Quality Control — `product-gaps.md`'s own dedicated audit layer
+
+Governed by Rule 5 (`core-rules.md`). Five distinct gap types, a cascading-research mechanism, and a pre-built keyword package requirement are too much distinct mechanics to leave to the general Mode A Quality Control alone.
+
+**Pre-ship checklist (run before `product-gaps.md` ships, every session):**
+1. **All five gap types stayed distinct** — Brand/Product/Category/Accessory/Competitor — Accessory was never collapsed into a generic Product gap, Competitor gaps were only produced when a competitor export was actually provided (never guessed from the primary export alone).
+2. **Every gap's keyword package is fully assembled, not just listed** — Secondary Keywords ran through the full Secondary Keyword Selection Rules + Supplementation (`filter-and-cluster.md`) to reach the 5+ floor, the same as a live page, not a bare list of related terms.
+3. **Page-Level FAQ candidates are present for every gap whose cluster supports them** (2–4 Q&As), pre-drafted for the same reason as the secondaries — ready to build on approval, not after.
+4. **Recommended Price is a single number, sourced from actual competitor pricing research**, not a range and not invented — and it's genuinely current, not carried over stale from an earlier pass.
+5. **Demand Signal and CPC Signal are both calculated from real cluster data**, not estimated.
+6. **An approved Category or Brand Gap's cascading research actually ran** (a scoped version of `niche-taxonomy.md` Step B for that one new category/brand, per Rule 4) before the proposal shipped as "ready to build" — a gap proposal was never left with just a bare category name and no sourced starter products.
+7. **Competitor Gap Analysis, when it ran, filtered to genuine gaps first** (cross-referenced against the site's own Primary Pool and existing page inventory) before anything was proposed — a keyword the site already targets or already has reasonable coverage for was never double-counted as a gap.
+
+**Re-audit (later, same trigger pattern as every other Layer 2 in this skill):**
+- Has a pending gap's Recommended Price gone stale since it was generated? Competitor pricing moves — re-check before any still-pending (not yet approved) gap is finally approved.
+- Has a previously-flagged gap since been approved and stocked? Confirm it moved into an actual live page (`page-mapping.md` item 1/2) and isn't left duplicated as both a live page and an open gap entry.
+- Has the competitor set's own ranking profile moved since the original Competitor Gap Analysis pull? Re-pull per Rule 4 rather than treating the first pass as permanent.

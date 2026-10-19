@@ -222,3 +222,22 @@ Experience, Expertise, Authoritativeness, Trustworthiness — the signals Google
 - Physical address / contact info in footer
 - Trust signals on product pages (warranty info, certifications, return policy)
 Flag missing E-E-A-T elements when scanning the site in Phase 5.
+
+---
+
+## Quality Control — this file's own dedicated audit layer
+
+Governed by Rule 5 (`core-rules.md`). Seven signals, a situational schema branch, and five GEO rules are too much distinct mechanics to leave to the general Mode A Quality Control alone.
+
+**Pre-ship checklist (run before this layer's output ships, every session):**
+1. **All seven signals were actually applied per mapped page, not just declared once at the session level** — a page with a planned FAQPage block but no Definition Hook (or vice versa) is a half-applied signal, not a pass.
+2. **Entity Coverage's `knowsAbout[]` source was confirmed as homepage AND shop page together, not homepage alone** (Signal 3) — the one check in this layer most worth re-verifying, since it's the easiest one to get half-right.
+3. **SERP Feature Targeting (Signal 6) ran per page, before that page's brief was finalized** — not skipped as "nice to have" or batched in afterward.
+4. **Local Business Schema only applied where the site genuinely has a physical location/service area** (per `filter-and-cluster.md` § Local Intent Layer) — never defaulted on for a ship-anywhere site, and never one shared block covering multiple locations.
+5. **Every Definition Hook (Signal 4) that's also AI-citation formatted (Signal 7) actually follows the additional rules** — fact-first, one claim per sentence, number anchored early, plain-text extractable — not just the base Signal 4 formula with the label added.
+6. **No signal's output landed outside `keyword-map.md`/`blog-plan.md`/`faq-bank.md`** — this layer annotates the documents `niche-taxonomy.md` and Phase 5–8 already produce, it never creates a new output document of its own.
+
+**Re-audit (later, same trigger pattern as every other Layer 2 in this skill):**
+- Has a page's primary keyword changed since this layer last ran (a Reason-A/A2 promotion out of blog, a cannibalisation re-pick, a Mode B MISMATCH retarget)? Its FAQ Schema, Entity Coverage, and Definition Hook all key off the primary — re-run this layer for that page specifically.
+- Has the live SERP's feature for a page's primary keyword changed (Signal 6)? SERPs drift — re-check periodically, not just at first build.
+- Has `knowsAbout[]` drifted to homepage-only again after an edit to either the homepage or shop page's keyword set? Re-confirm both are still represented.
