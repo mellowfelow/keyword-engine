@@ -62,7 +62,7 @@ The numeric bands above are necessary but not sufficient. Some keywords pass eve
 - Competitor brand names → move to "Competitor Brands" list
 - These are valid ONLY for comparison/review blog posts (e.g. "Sur-Ron vs KTM electric")
 - Never use a competitor brand name as the primary keyword on a product page
-- Own brand name keywords → Navigational intent, assign to homepage or brand page
+- Own brand name keywords (the site's own company/store name, not a brand it stocks) → Navigational intent, assign to the **homepage** (its eligible-primary set includes the brand-level term, `page-mapping.md` item 3A) — never to an Individual Brand page, which is reserved for third-party brands the site actually stocks (item 2), not the site's own identity
 
 ### Geography Filter
 Apply strictly per site:
@@ -93,7 +93,7 @@ Worked examples: `buy [brand] [model]` matches Transactional (`buy`) AND Navigat
 
 ### Informational (third priority for primary-page assignment, LAST priority for blog sourcing)
 **Signals:** how to, what is, why, guide, tips, explained, tutorial, learn, beginners, complete guide, everything you need to know
-**Assign to:** blog posts (guides, pillar content) — **reversed from the original release: blog posts are NOT anchored on Informational by default.** The sourcing order is strict: Transactional (true orphans, vol 20–99 — "Reason A," see Orphan Keywords below) → Commercial → Informational, with Informational as last-resort filler only once T/C are exhausted. Informational is never the pillar/guide backbone on its own — see `page-mapping.md` §7 for the full Reason A/B routing.
+**Assign to:** blog posts (guides, pillar content) — **reversed from the original release: blog posts are NOT anchored on Informational by default.** The sourcing order is strict: Transactional (true orphans, vol 20–99 — "Reason A," see Orphan Keywords below) → Commercial → Informational, with Informational as last-resort filler only once T/C are exhausted. Informational is never the pillar/guide backbone on its own — see `page-mapping.md` §7 for the full Reason A/A2/B routing.
 **Note:** High-volume informational keywords = pillar post candidates, but only sourced after the Transactional/Commercial pool for this batch is exhausted
 
 ### Question Intent

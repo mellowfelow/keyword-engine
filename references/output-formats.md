@@ -320,7 +320,7 @@ A: [50–65 word answer]
 
 ## Document 5: deprecated — merged into blog-plan.md
 
-`keyword-cluster.txt` no longer exists as a separate file. The problem it solved (giving WebForge a flat, easy-to-scan build queue) is now solved inside `blog-plan.md` itself via its per-post `Status` (`Pending`/`Built`) field, documented in Document 2 above. Only four real documents are produced now: `keyword-map.md`, `blog-plan.md`, `faq-bank.md`, `product-gaps.md`.
+`keyword-cluster.txt` no longer exists as a separate file. The problem it solved (giving WebForge a flat, easy-to-scan build queue) is now solved inside `blog-plan.md` itself via its per-post `Status` (`Pending`/`Built`) field, documented in Document 2 above. Four real documents are produced every session: `keyword-map.md`, `blog-plan.md`, `faq-bank.md`, `product-gaps.md` — plus `taxonomy-map.md` and `starter-product-list.csv` on top when Phase 0 ran (`niche-taxonomy.md`).
 
 ---
 
@@ -372,14 +372,17 @@ At the end of every session, output this summary in chat before delivering the f
 - docs/blog-plan.md ✅ (also the WebForge blog build queue — flip each post's Status to Built after it's published)
 - docs/faq-bank.md ✅
 - docs/product-gaps.md ✅
+- docs/taxonomy-map.md ✅ (only if Phase 0 ran)
+- docs/starter-product-list.csv ✅ (only if Phase 0 ran)
 
 ### Hand-off to WebForge
 When starting a WebForge build session after running keyword-engine:
-1. Attach docs/keyword-map.md and docs/blog-plan.md to the WebForge Claude Project
+1. Attach docs/keyword-map.md, docs/blog-plan.md, docs/faq-bank.md, and docs/product-gaps.md to the WebForge Claude Project (plus docs/taxonomy-map.md and docs/starter-product-list.csv if Phase 0 ran)
 2. WebForge reads keyword-map.md for page meta, H1s, and on-page keyword targets
 3. WebForge reads blog-plan.md for the blog post build queue (next unused post = next `Pending` row)
 4. WebForge reads faq-bank.md for homepage FAQ and FAQ page content
 5. WebForge reads product-gaps.md to decide which product/category pages to create
+6. If Phase 0 ran, WebForge reads taxonomy-map.md/starter-product-list.csv to answer its own Intake Section I (Shop Structure) and Section K (Initial Products) instead of asking the client from scratch
 ```
 
 ---

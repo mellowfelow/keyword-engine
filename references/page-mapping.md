@@ -148,7 +148,7 @@ For every cluster-to-page assignment, output these on-page requirements:
 
 ### Meta Description Formula
 `[Primary Keyword] [value proposition]. [Secondary keyword signal]. [CTA].`
-- 145–160 characters
+- 130–155 characters (satisfies both Google ≤160 and Bing 120–158; target ~148)
 - Must include primary keyword in first 20 words
 - Must end with a call to action
 - Example: "Shop the best electric dirt bikes for kids. Free UK shipping on all orders over £99. Browse our full range today."

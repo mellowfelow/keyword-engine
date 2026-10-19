@@ -3,12 +3,13 @@
 ## Blog Planning Rules
 
 ### Who Gets a Blog Post
-Every cluster mapped to "new blog post" (page-mapping.md §7) gets a full brief, under the Reason A/B split that governs which clusters are even blog-eligible:
+Every cluster mapped to "new blog post" (page-mapping.md §7) gets a full brief, under the Reason A/A2/B split that governs which clusters are even blog-eligible:
 - **Reason A — true orphan, too low volume.** A Transactional keyword that never clustered with anything, vol 20–99, and isn't already claimed by a real taxonomy category, the homepage/shop, FAQ, an active conditional page, a stocked product, or a stocked brand → blog post.
+- **Reason A2 — Informational orphan, too low volume.** An Informational keyword that never clustered with anything, vol <200, with the same carve-out as Reason A (never blog-routed if it's actually the intended primary of a Guarantee-driven or active page) → blog post, but sourced strictly as last-resort filler (see the maximise-posts bullet below), never ahead of Reason-A or Commercial, and never a separate holding list.
 - **Reason B — real volume, no matching product/category** → never blog; routes to a Gap Flag instead (product-gaps.md).
 - Any Commercial cluster (vol ≥20) that didn't map to a product/category page → blog post.
 - Any comparison keyword cluster → blog post, **unless the site has an active Compare page** (page-mapping.md's conditional page types) — a static Compare page and a Commercial "X vs Y" blog post must never target the same pair; if both could cover it, Opportunity Score decides which keeps it, and the comparison cluster never goes to a product page either way.
-- Maximise the number of posts: if a cluster is viable under Reason A or Commercial, write the brief — Informational is sourced last, as filler once Reason-A/Commercial are exhausted, never ahead of them.
+- Maximise the number of posts: if a cluster is viable under Reason A or Commercial, write the brief — Informational (including Reason-A2 orphans) is sourced last, as filler once Reason-A/Commercial are exhausted, never ahead of them.
 
 ### ⭐ Launch Batch Floor — Tiered by Niche Size, Plus a Growing Backlog Toward 1000+
 
@@ -25,7 +26,7 @@ This sizing proxy is a lightweight stand-in — a fuller niche/taxonomy classifi
 
 All briefs written and in blog-plan.md before the session ends — not trickled out over the 12-week calendar. Beyond the launch batch, keep planning: queue every additional viable topic as a backlog entry in blog-plan.md itself (see Content Calendar below), toward the 1000+ overall target where the niche supports it. The tier's number is a minimum, not a target.
 
-**Sourcing order, strict:** Reason-A Transactional (vol 20–99) → Commercial (vol ≥20) → Informational, only once T+C are exhausted. This replaces the old blanket "maximise posts" framing with the same sourcing discipline as every other page type in this revamp.
+**Sourcing order, strict:** Reason-A Transactional (vol 20–99) → Commercial (vol ≥20) → Informational (including Reason-A2 orphans, vol <200), only once T+C are exhausted. This replaces the old blanket "maximise posts" framing with the same sourcing discipline as every other page type in this revamp.
 
 **If the natural clusters don't reach the tier's launch batch target**, expand the topic pool using the same principle as Secondary Keyword Supplementation (filter-and-cluster.md) — real data first, generated topics only to fill the gap, and T/C before Informational within the expansion too:
 
@@ -100,7 +101,7 @@ For every blog post, output this complete brief:
 
 ### Title & Meta
 - **H1:** [Full title — keyword first]
-- **Meta Description:** [145–160 chars, CTA included]
+- **Meta Description:** [130–155 chars, CTA included — satisfies both Google ≤160 and Bing 120–158]
 - **Title Tag:** [Max 60 chars]
 
 ---

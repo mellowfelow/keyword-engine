@@ -234,7 +234,7 @@ Map each cluster to a page using this priority (full detail, including page type
 4. Existing blog post → assign to improve it, if informational/commercial and a directly relevant post exists
 5. New product page needed → flag as gap
 6. New category page needed → flag as gap (cascades into starter-product research once approved)
-7. New blog post needed → flag for Phase 6, under the Reason A/B split (see Phase 2 — only true orphans route to blog; real-volume gaps always flag instead)
+7. New blog post needed → flag for Phase 6, under the Reason A/A2/B split (see Phase 2 — only true orphans route to blog; real-volume gaps always flag instead)
 8. Programmatic pattern set → for catalogs with genuine combinatorial structure (Brand × Category, Size × Type, etc.) at real scale — flag as a page-template set, not individual gaps (see references/page-mapping.md § Programmatic Pattern Pages)
 9. Other guaranteed/conditional page types not listed above — FAQ page (guaranteed default), Sale/Deals, Best Sellers/New Arrivals, Compare, Wholesale (all conditional), Brand Hub (3+ brands), utility pages — see references/page-mapping.md § Other Guaranteed/Conditional Page Types for placement rules
 ```
@@ -257,13 +257,13 @@ Map each cluster to a page using this priority (full detail, including page type
 
 → Read `references/content-planning.md` § Blog Planning
 
-All clusters mapped to "new blog post" get a full brief, under the Reason A/B split (page-mapping.md) that governs which clusters are even blog-eligible — Reason-A Transactional orphans (vol 20–99) and Commercial clusters, never Reason-B (those route to a Gap Flag instead). Maximise the number of posts within that — every viable Reason-A/Commercial cluster gets one, with Informational sourced last as filler.
+All clusters mapped to "new blog post" get a full brief, under the Reason A/A2/B split (page-mapping.md) that governs which clusters are even blog-eligible — Reason-A Transactional orphans (vol 20–99), Reason-A2 Informational orphans (vol <200, last-resort filler only), and Commercial clusters, never Reason-B (those route to a Gap Flag instead). Maximise the number of posts within that — every viable Reason-A/Commercial cluster gets one, with Informational (including Reason-A2) sourced last as filler.
 
 **Launch batch floor, tiered by niche breadth — not a flat 20.** Every session must deliver a complete launch batch, ready to build immediately, sized per the niche tier (25–30 Micro/Small, up to 100+ Massive — see `references/content-planning.md` § Launch Batch Floor for the full sizing table), toward a 1000+ overall target where the niche supports it. If the natural cluster set falls short of the tier's target, expand it before delivery, real data first and Transactional/Commercial before Informational: broaden Reason-A/Commercial coverage, mine a site-search export for topic angles if one was provided, mine a competitor export for content gaps if one was provided, then mine the site's own catalog for comparison/accessory/buying-guide angles, and finally pull topic ideas from Google related-search mining. Never pad the count with thin, near-duplicate topics just to hit the target — if genuine expansion can't reach it, say so explicitly and show the real number with the reasoning, rather than silently under-delivering or manufacturing filler. See `references/content-planning.md` § Launch Batch Floor for the full floor + expansion strategy.
 
 **Blog post brief includes:**
 - Post title (H1) — keyword-first, click-worthy
-- Meta description (150–160 chars, includes primary keyword)
+- Meta description (130–155 chars, includes primary keyword — satisfies both Google ≤160 and Bing 120–158)
 - Target primary keyword + secondary keywords
 - Word count recommendation, by cluster size (see `references/content-planning.md` § Word Count by Cluster Size for the authoritative table): 2–4 kw → 800–1200w; 5–8 kw → 1200–2000w; 9–12 kw → 2000–3000w; 13+ kw → 3000–5000w pillar
 - Content type: guide / comparison / listicle / review / explainer / roundup / care & maintenance guide
@@ -323,7 +323,7 @@ Scan all clusters. Flag any transactional or commercial cluster where no existin
 - Suggested URL (e.g. `/brands/sur-ron/` or `/electric-dirt-bikes/youth/`)
 - Primary keyword to target (highest Opportunity Score)
 - **Secondary keywords for that page — fully assembled to the 5+ floor, not just listed.** Run every gap through the same Secondary Keyword Selection Rules + Supplementation used for live pages (`references/filter-and-cluster.md`) before it's written into product-gaps.md. **The point of this: when the client decides to build the gap, the keyword package is already complete — no extra research pass, no gap between the decision and the build.**
-- **Recommended Price** — a single number, not a range, sourced from competitor pricing research. Re-check before approval if competitor pricing has moved since this was generated.
+- **Recommended Price** — a single number, not a range, sourced from competitor pricing research. Re-check before approval if competitor pricing has moved since this was generated. Full derivation method in `references/product-gaps.md` § Recommended Price.
 - Page-level FAQ candidates, pre-drafted for the same reason (2–4 Q&As where the cluster supports it)
 - Priority tier (T1 gaps first)
 

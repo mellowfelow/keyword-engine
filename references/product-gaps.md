@@ -132,6 +132,18 @@ Also flag:
 
 ---
 
+## Recommended Price (the price-tiered-volume criteria)
+
+Every gap proposal carries a **single recommended price, not a range**, so an approved gap is immediately sourceable rather than needing a separate pricing pass. Derive it in this order:
+
+1. **Start from real competitor pricing for this category.** If Phase 0 ran, pull the rough price range `niche-taxonomy.md` Step B already captured for this category/subcategory in `taxonomy-map.md` — that's the durable home for this data, not a fresh lookup. If Phase 0 didn't run (no taxonomy exists), pull it live: check 2–3 real competitor listings for the same or closest-equivalent product during this gap's research.
+2. **Tier the price within that range by demand (the "volume" half of price-tiered-volume):** a high Demand Signal (strong, broad search volume) means the category is competitive and price-sensitive — recommend toward the **lower-to-middle** of the competitor range to be findable/competitive. A low-to-moderate Demand Signal in a niche with few real competitors (an underserved-niche signal, `niche-taxonomy.md` Step B) can support pricing toward the **middle-to-upper** range, since less price competition exists.
+3. **Output one number, not a range** — round to a realistic retail price point (e.g. $34.99, not "$30–40"). State which competitor data point(s) it's based on in the proposal's Opportunity section, so it's traceable, not asserted.
+
+**Never invent a price with no competitor data behind it.** If genuinely no pricing data exists for this category (Phase 0 didn't run and no competitor listing could be found during this gap's research), state that plainly in the proposal instead of guessing a number — same honesty standard as every other "real data or say so" rule in this skill.
+
+---
+
 ## Full Proposal Template
 
 For every gap identified, output:
@@ -143,6 +155,7 @@ For every gap identified, output:
 **Priority:** T1 / T2 (based on primary keyword tier)
 **Demand Signal:** [combined volume of all cluster keywords]
 **CPC Signal:** [average CPC across cluster — high/medium/low]
+**Recommended Price:** [single number, not a range — see § Recommended Price below for how to derive it]
 
 ---
 

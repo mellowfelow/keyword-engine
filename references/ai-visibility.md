@@ -122,6 +122,8 @@ WebForge instruction: Add class="faq-answer-speakable" to this element during bu
 | P3 — Optional | Standard blog posts | Include if they cover unique topics |
 | Exclude | Tag pages, pagination, thank-you pages, account pages | Low value, noise |
 
+**Output location: appended to `product-gaps.md`** (`output-formats.md` Document 4), not keyword-map.md/blog-plan.md/faq-bank.md — this signal's output lives alongside the gap-analysis documents since WebForge reads it from there when building `llms.txt`.
+
 **Output at end of session:**
 ```markdown
 ## llms.txt Priority Map
@@ -235,7 +237,7 @@ Governed by Rule 5 (`core-rules.md`). Seven signals, a situational schema branch
 3. **SERP Feature Targeting (Signal 6) ran per page, before that page's brief was finalized** — not skipped as "nice to have" or batched in afterward.
 4. **Local Business Schema only applied where the site genuinely has a physical location/service area** (per `filter-and-cluster.md` § Local Intent Layer) — never defaulted on for a ship-anywhere site, and never one shared block covering multiple locations.
 5. **Every Definition Hook (Signal 4) that's also AI-citation formatted (Signal 7) actually follows the additional rules** — fact-first, one claim per sentence, number anchored early, plain-text extractable — not just the base Signal 4 formula with the label added.
-6. **No signal's output landed outside `keyword-map.md`/`blog-plan.md`/`faq-bank.md`** — this layer annotates the documents Phases 5–8 already produce, it never creates a new output document of its own.
+6. **No signal's output landed outside `keyword-map.md`/`blog-plan.md`/`faq-bank.md`/`product-gaps.md`** (Signal 5's llms.txt Priority Map specifically lives in `product-gaps.md`'s output, not the other three) — this layer annotates the documents Phases 5–8 already produce, it never creates a new output document of its own.
 
 **Re-audit (later, same trigger pattern as every other Layer 2 in this skill):**
 - Has a page's primary keyword changed since this layer last ran (a Reason-A/A2 promotion out of blog, a cannibalisation re-pick, a Mode B MISMATCH retarget)? Its FAQ Schema, Entity Coverage, and Definition Hook all key off the primary — re-run this layer for that page specifically.
