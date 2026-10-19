@@ -152,9 +152,24 @@ Higher score = higher priority. Use this to:
 
 If a keyword's export has no CPC column, treat CPC as 0 for that keyword (the formula degrades gracefully — it just stops rewarding commercial value it has no data for, rather than breaking).
 
+### Primary/Secondary Intent Priority (site-wide, on top of Opportunity Score)
+
+**Primary keyword selection priority: Transactional first, Commercial second.** This gates which intent pool the Opportunity Score formula is even allowed to draw from — it doesn't replace scoring, it restricts it. First filter candidates to Transactional-only (among those that already passed the Filtering Rules above); if one or more qualify, rank *within that Transactional-only pool* by Opportunity Score to pick the actual primary. Only if zero Transactional candidates qualify does the pool open up to Commercial candidates, scored the same way. The Intent Weight in the Opportunity Score formula already favors Transactional (×1.5) over Commercial (×1.2), but that's a soft scoring bias — this gate is a hard restriction on which pool is even eligible, and it's what actually enforces Rule 2 (the aim is sales) at the point where a primary keyword gets picked.
+
+- **This priority can never override the Filtering Rules or Situational Drop.** A Transactional keyword that failed a situational-drop check (e.g. marketplace-dominated SERP) doesn't count as "available" just because it's nominally Transactional — Commercial still wins in that case.
+- **Low-KD Rescue keywords remain secondary-only, never primary** — unaffected by this rule. T-priority governs selection among keywords that already qualify as viable primaries; it never promotes a rescue-only keyword past that restriction.
+- **Secondary keyword selection priority: Commercial first, Transactional second** — the inverse order from primary. A page's primary leans Transactional, its secondaries lean Commercial, with Transactional secondaries filling any remaining gap.
+- Availability-dependent, not a mandate: if the preferred intent genuinely isn't available for a given page, fall through to the next intent in order rather than forcing a bad fit.
+- **Carve-out:** Individual Brand pages (`page-mapping.md` item 2, "Individual Brand pages specifically") still anchor on **Navigational** primaries regardless of this rule — not to be confused with the Brand Hub aggregator (item 9), which anchors Informational/Navigational as a directory. This T/C priority rule governs commercial/shop/category pages, not either of these.
+- **Homepage and the top-level shop page specifically must prioritize Transactional intent for their primary keyword** — stronger than the general rule above, and identical for both pages since they carry equal importance (`page-mapping.md` item 3, "Homepage AND Top-Level Shop Page"). The eligible-primary rule there allows "brand term OR top commercial term"; this tightens it toward Transactional specifically when a qualifying candidate exists.
+
 ---
 
 ## Clustering Rules
+
+### Seed Clusters (only when Phase 0 ran — `niche-taxonomy.md`)
+
+**If `niche-taxonomy.md` produced a `taxonomy-map.md`, every category/subcategory in it becomes a seed cluster before clustering below runs.** Check each natural cluster against the seed clusters first: a topical match joins (extends) the existing seed cluster rather than forming an independent one; this is what keeps a category page's keyword set coherent with the taxonomy it's supposed to represent. A cluster with no match goes through the ordinary clustering process below — if it's strong enough to need its own page but has no taxonomy home, it surfaces as a normal Category Gap (`page-mapping.md`'s New Category Page flag), not a separate mechanism. Skip this subsection entirely when no Phase 0 run exists for this project (the normal case when the user supplied a keyword/product list directly).
 
 ### What Makes a Cluster
 A cluster is a group of keywords that should all be targeted by a single URL. Test: "Would a user searching any of these keywords be satisfied by the same page?" If yes → same cluster.

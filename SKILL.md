@@ -1,23 +1,28 @@
 ---
 name: keyword-engine
-description: Keyword strategy and audit skill for ecommerce sites. Two modes — MODE A (pre-build): paste keywords + site URL to produce strategy docs for WebForge; MODE B (post-build audit): site URL only, crawls live site, flags drift/cannibalisation/orphans, updates keyword-map.md and blog-plan.md. Use for: keyword research, clustering, mapping, blog planning, FAQ banks, product gaps, content calendar, SEO/GEO/AEO strategy, AI visibility, keyword audits, cannibalisation checks, or any keyword-related task. Do NOT trigger when WebForge is mid-build implementing an existing keyword-map.md.
+description: Research skill for ecommerce sites — keyword strategy, niche/taxonomy research, and post-build auditing. Two modes — MODE A (pre-build): paste a keyword list (or just a niche/location to research from scratch) + site URL to produce strategy docs for WebForge; MODE B (post-build audit): site URL only, crawls live site, flags drift/cannibalisation/orphans, updates keyword-map.md and blog-plan.md. Use for: keyword research, niche/shop-taxonomy discovery, clustering, mapping, blog planning, FAQ banks, product gaps, content calendar, SEO/GEO/AEO strategy, AI visibility, keyword audits, cannibalisation checks, or any keyword/research-related task. Do NOT trigger when WebForge is mid-build implementing an existing keyword-map.md.
 ---
 
 # Keyword Engine
+
+Governed by five core rules (`references/core-rules.md`) that sit above both modes — trusted data sources, the aim is sales, double-check everything, competitor keywords as a standing input, and the Master Audit Gate. Read that file first; it's not optional background, it's what makes every phase below actually airtight rather than just internally consistent.
 
 Two operating modes. Detect which one the user needs at the start of every session and confirm before proceeding.
 
 ```
 MODE A — STRATEGY (pre-build)          MODE B — AUDIT (post-build)
 ─────────────────────────────          ──────────────────────────────
-Input: keyword paste + site URL        Input: site URL only
+Input: keyword paste (or niche/        Input: site URL only
+       location to research from
+       scratch) + site URL
 Runs: before WebForge build            Runs: after WebForge build, manually
 Output: 4 strategy docs in docs/       Output: updated keyword-map.md +
-                                               blog-plan.md +
-                                               in-chat audit summary
+       (+ taxonomy-map.md/starter-            blog-plan.md +
+       product-list.csv if Phase 0           in-chat audit summary
+       ran)
 ```
 
-**Mode detection:** If the user pastes a keyword list → MODE A. If the user provides only a URL and asks to check/audit/verify → MODE B. If unclear, ask: "Are you starting a new keyword strategy (Mode A) or auditing a site that's already been built (Mode B)?"
+**Mode detection:** If the user pastes a keyword list → MODE A, starting at Phase 1. If the user gives only a niche/keyword/location with no list and no existing product list → MODE A, starting at Phase 0 (`references/niche-taxonomy.md`). If the user provides only a URL and asks to check/audit/verify → MODE B. If unclear, ask: "Are you starting a new keyword strategy (Mode A) or auditing a site that's already been built (Mode B)?"
 
 ---
 
@@ -26,28 +31,33 @@ Output: 4 strategy docs in docs/       Output: updated keyword-map.md +
 **Runs before WebForge.** Produces the four strategy documents WebForge consumes to build pages, blog posts, and FAQ sections with maximum on-page SEO from day one.
 
 ```
-INPUTS: raw keyword paste + site URL
+INPUTS: raw keyword paste + site URL  — OR — niche/location only (no list, no product list)
+    ↓
+PHASE 0 → Niche & Taxonomy Discovery   (only when no keyword/product list was given)
     ↓
 PHASE 1 → Filter & Clean
 PHASE 2 → Intent Classification
 PHASE 3 → KD/Volume Scoring & Triage
-PHASE 4 → Cluster & De-duplicate
+PHASE 4 → Cluster & De-duplicate        (seeds from Phase 0's taxonomy when it ran)
 PHASE 5 → Site Scan & Page Mapping
 PHASE 6 → Blog Post Planning
 PHASE 7 → FAQ Bank Generation
 PHASE 8 → Product Gap Analysis
 PHASE 9 → AI/GEO/AEO Visibility Layer
     ↓
-OUTPUTS: 4 documents + in-chat summary
+OUTPUTS: 4 documents + in-chat summary (+ taxonomy-map.md/starter-product-list.csv if Phase 0 ran)
 ```
 
 Reference files for MODE A:
+- Core rules (governs everything below) → `references/core-rules.md`
+- Phase 0 (conditional) → `references/niche-taxonomy.md`
 - Phases 1–4 → `references/filter-and-cluster.md`
 - Phase 5 → `references/page-mapping.md`
 - Phases 6–7 → `references/content-planning.md`
 - Phase 8 → `references/product-gaps.md`
 - Phase 9 → `references/ai-visibility.md`
 - Output formats → `references/output-formats.md`
+- Semrush/platform-link operational workflow (how every phase above actually sources real data, per Rules 1 and 4) → `references/semrush-workflow.md`
 
 ---
 
@@ -80,17 +90,26 @@ OUTPUTS: updated keyword-map.md + blog-plan.md + in-chat audit summary
 **Step 1 — Detect mode** (see Mode Detection above). Confirm with the user before proceeding.
 
 **MODE A startup — ask for these if not provided:**
-- SITE URL, SITE MARKET, NICHE SUMMARY, KEYWORD PASTE (Keyword / Volume / KD / CPC / Intent columns), EXISTING PAGE LIST (optional — skill crawls if not pasted)
+- SITE URL, SITE MARKET, NICHE SUMMARY, EXISTING PAGE LIST (optional — skill crawls if not pasted)
+- **Either** KEYWORD PASTE (Keyword / Volume / KD / CPC / Intent columns) or an existing product list — proceed straight to Phase 1. **Or**, if neither exists and the user only gave a niche/keyword to build a shop from scratch, a TARGET MARKET/LOCATION — run Phase 0 first (`references/niche-taxonomy.md`), which produces the product/category list Phase 1 then runs on.
 - COMPETITOR SEMRUSH EXPORT (optional): a competitor's Organic Research or Keyword Gap export does double duty — it unlocks Competitor Gap Analysis (Phase 8) AND becomes a real-data source for secondary keyword supplementation (Phase 4, ranked above Google related searches since it carries actual Vol/KD/CPC). No API access used or assumed — this is a manual export, same as the site's own keyword data. Skip cleanly if not provided.
 - SITE-SEARCH QUERY EXPORT (optional): a Query/Count export from the site's own internal search (Shopify, WooCommerce, etc. all support this) becomes the top-priority source for secondary keyword supplementation (Phase 4) — real first-party intent beats generic related-search data. Skip cleanly if not provided.
 
 **MODE B startup — URL only:**
 - SITE URL is all that's needed. Skill crawls the live site, extracts what's there, and builds its own current keyword picture from scratch. No docs or keyword paste required.
-- **EXISTING DOCS (optional):** if `keyword-map.md` and/or `blog-plan.md` are pasted or already in context, the audit compares against them directly instead of working purely from the reverse-engineered crawl — richer findings (planned-vs-live drift, Guarantee Flag checks, launch-batch-floor coverage) become possible. Skip cleanly if not provided; the audit still runs from the crawl alone.
-- **SEMRUSH/PLATFORM LINK (optional):** if a refreshed link is provided this session, the audit can re-check a live primary keyword's KD against the ≤28 ceiling and catch difficulty drift. Without it, skip that specific check — never assume or estimate KD without the actual data, same discipline Phase 1 applies to every other filter in this skill: real data or skip, never a guess.
+- **EXISTING DOCS (optional):** if `keyword-map.md`, `blog-plan.md`, and/or `taxonomy-map.md` are pasted or already in context, the audit compares against them directly instead of working purely from the reverse-engineered crawl — richer findings (planned-vs-live drift, Guarantee Flag checks against the actual taxonomy rather than an assumed one, launch-batch-floor coverage) become possible. Skip cleanly if not provided; the audit still runs from the crawl alone.
+- **SEMRUSH/PLATFORM LINK (optional):** if a refreshed link is provided this session, the audit can re-check a live primary keyword's KD against the ≤28 ceiling and catch difficulty drift (refresh-before-read discipline applies here too — see `references/semrush-workflow.md`). Without it, skip that specific check — never assume or estimate KD without the actual data, same discipline Phase 1 applies to every other filter in this skill: real data or skip, never a guess.
 - **GSC PERFORMANCE DATA (Audit Phase 8):** the skill reads this live, via the in-app browser's already-logged-in Search Console session — no paste needed, no API used. Navigate to `search.google.com/search-console`, match the property by domain, and pull the Performance report (Queries + Pages, Compare-to-previous-period on) directly. Only fall back to asking for a manual CSV export if the property isn't accessible in the logged-in account or the browser session isn't available. If neither works, skip Phase 8 cleanly and say so — never block the rest of the audit on it.
 
 **One site = one session.** Never mix keyword sets across different site domains.
+
+---
+
+## Phase 0 — Niche & Taxonomy Discovery (conditional)
+
+→ Read `references/niche-taxonomy.md`
+
+**Only runs when the user supplied a niche/keyword instead of a ready keyword list or existing product list.** Produces a full, stockable shop taxonomy from scratch (`taxonomy-map.md` + `starter-product-list.csv`), gated by a hard viability check (is this a real, sellable, non-dead product category in the stated market?) and a legal/compliance flag where relevant. **Phase 0 doesn't produce the keyword paste Phase 1 needs** — it answers "what to sell," not "which keywords to target." Immediately after Step H, use the Semrush/platform link to generate that keyword export from the taxonomy's own terms before handing off to Phase 1 — see `niche-taxonomy.md` § Generating the keyword paste Phase 1 needs. Every category/subcategory Phase 0 produces also becomes a seed cluster that Phase 4 clusters against — see `niche-taxonomy.md` § Feeding into clustering. Skip this phase entirely and go straight to Phase 1 whenever a keyword list or product list already exists.
 
 ---
 
@@ -158,6 +177,8 @@ Tier (T1/T2) applies to the **primary keyword only** — nothing above KD 28 is 
 
 **Opportunity Score** — within a tier, or when picking which keyword becomes a cluster's primary, rank by `((Volume × Intent Weight) / 10) − (KD × 2) + (CPC × 3)`, not volume/KD alone. This folds CPC in as a commercial-value signal so genuinely valuable keywords win, not just easy ones. Full formula and intent weights in `references/filter-and-cluster.md`.
 
+**Primary selection is gated by intent before scoring runs.** Transactional candidates are scored first; only if zero qualify does the pool open to Commercial. Secondaries run the inverse order (Commercial first, Transactional second). This is a hard gate on top of Opportunity Score, not replaced by it — full rule, carve-outs (Individual Brand pages, homepage/shop), in `references/filter-and-cluster.md` § Primary/Secondary Intent Priority.
+
 **No high-volume outlier exception — removed.** A keyword above KD 35 is dropped regardless of volume, even at Vol 2000+. There is no "Revisit in 6 months" section — chasing a keyword that takes real authority to rank for isn't worth it even when tempting, high-volume data is attached.
 
 **Low-KD Rescue (the mirror case):** a Transactional/Commercial keyword below the volume floor but **KD ≤ 15** isn't dropped — it's an easy, real, scored win. Route it to the Secondary Pool (never a dedicated page) and prioritize it first when supplementing a thin cluster's secondaries in Phase 4. **KD ≤ 10** is the strongest rescue tier — flag distinctly. See `references/filter-and-cluster.md`.
@@ -169,6 +190,8 @@ Tier (T1/T2) applies to the **primary keyword only** — nothing above KD 28 is 
 ## Phase 4 — Cluster & De-duplicate
 
 → Read `references/filter-and-cluster.md` § Clustering Rules
+
+**If Phase 0 ran:** every category/subcategory in `taxonomy-map.md` is a seed cluster — check each natural cluster against the seeds first; a topical match extends the seed rather than forming an independent cluster. See `references/filter-and-cluster.md` § Seed Clusters.
 
 Group keywords into clusters. Each cluster = one URL.
 
@@ -225,6 +248,8 @@ Map each cluster to a page using this priority (full detail, including page type
 - Secondary keywords — **5+ minimum (homepage and shop page: 3-5)**, each tagged with its source if supplemented (`[site-search]` / `[competitor]` / `[related-search]` / `[generated]`)
 - LSI/supporting keywords (secondary/LSI pool, including any pulled from the 29–35 fallback band)
 - On-page requirements: title tag formula, H1 formula, meta description formula, image alt text note
+- Journey stage (Awareness/Consideration/Purchase/Loyalty) + the forward/back internal links to its journey-adjacent content — see `references/page-mapping.md` § Journey-Stage Internal Linking
+- Page-level FAQ (2–4 Q&As) if the cluster has question-intent keywords to draw on — see `references/content-planning.md` § Page-Level FAQ
 
 ---
 
@@ -332,7 +357,7 @@ Run this layer across all outputs — it annotates the keyword map and content p
 
 ## Output Documents
 
-Produce all four documents at the end of every session.
+Produce all four documents at the end of every session (plus two more if Phase 0 ran).
 → See `references/output-formats.md` for exact templates.
 
 | Document | WebForge Uses It For | Contents |
@@ -341,8 +366,10 @@ Produce all four documents at the end of every session.
 | `blog-plan.md` | Blog post builds — titles, outlines, schema, internal links; also the blog build queue | Full brief for every planned blog post + 12-week content calendar. Each post carries a `Pending`/`Built` Status field — this is the blog post build queue now; there is no separate `keyword-cluster.txt` file. |
 | `faq-bank.md` | Homepage FAQ section + FAQ page build + FAQPage schema | All FAQ Q&As with JSON-LD schema blocks, grouped by theme |
 | `product-gaps.md` | Product/category page creation decisions | All product/category/brand gap proposals with full demand analysis |
+| `taxonomy-map.md` (only if Phase 0 ran) | Shop structure, category pages to build | Full category→subcategory tree, top brands/products with confidence tags, sources, viability verdict |
+| `starter-product-list.csv` (only if Phase 0 ran) | Initial stock list | Flat category/subcategory/product/brand/confidence list — hand straight to a supplier |
 
-**⚠️ WebForge Rule 12 — all four documents go in `docs/` only.**
+**⚠️ WebForge Rule 12 — all strategy documents go in `docs/` only.**
 Never place them in `public/` or include them in any deploy ZIP. These are internal strategy files — putting them on the live site hands competitors the entire plan. WebForge enforces this at crosscheck.
 
 **In-chat summary after each session:**

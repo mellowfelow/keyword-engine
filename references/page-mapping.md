@@ -51,7 +51,7 @@ Both pages get identical priority and treatment — equal importance, not homepa
 **Why the exception:** these are the site's two highest-authority pages — the ones Google shows for brand searches and broad catalog-entry searches. Forcing the full product-page-level breadth of 5+ secondary long-tail targets onto either risks (a) topical dilution — a focused page ranks better than a scattered one, (b) reading like a keyword-stuffed listicle rather than a clean hub, and (c) cannibalizing the category/product pages that should rightfully own those long-tail terms.
 
 #### 3A. Homepage
-**Eligible primary:** brand-level term or the single highest-volume top-level commercial keyword (e.g. "electric dirt bikes UK").
+**Eligible primary:** per `filter-and-cluster.md` § Primary/Secondary Intent Priority, a genuinely Transactional-classified top-level term wins first if one qualifies (e.g. "buy electric dirt bikes UK"); otherwise the brand-level term or the single highest-volume top-level category keyword (e.g. "electric dirt bikes UK").
 **Eligible secondaries:** brand name variations, top category umbrella terms (not deep long-tail modifiers — those belong on their own dedicated product/category pages, never stuffed onto the homepage). Do not run homepage secondaries through the Google-related-search / generated-transactional-modifier supplementation process used elsewhere — homepage secondaries should stay close to the primary, not padded out to a count.
 **On-page notes:** Homepage is a hub — keywords should appear in hero headline, intro paragraph, section headings, and meta description. Do not force product-specific keywords onto the homepage.
 **Feeds the `knowsAbout[]` schema field** (ai-visibility.md's Organization schema) alongside the shop page below — no separate tracking, this is a read off the primary+secondaries already assigned here.
@@ -115,9 +115,13 @@ Both pages get identical priority and treatment — equal importance, not homepa
 ```
 
 ### 9. Other Guaranteed/Conditional Page Types
-Brief placement rules for page types that don't fit the flow above — full detail is being finalized in the keyword-research workflow and will expand here at that merge; this is enough to map correctly today.
+Placement rules for page types that don't fit the flow above.
 - **FAQ Page — guaranteed default, not conditional.** Every build gets one. Question-intent, not T/C/I — shaped as a comprehensive Q&A bank, never forced into a primary+secondary cluster count.
-- **Sale/Deals, Best Sellers/New Arrivals, Compare, Wholesale — all conditional, built only when the client's data/business model actually supports them.** Ordinary-page KD/volume/intent rules apply to each. Sale/Deals and Best Sellers/New Arrivals both carry a cannibalisation check against the homepage/shop, category pages, and each other when both are active.
+- **Sale/Deals, Best Sellers/New Arrivals, Compare, Wholesale — all conditional, built only when the client's data/business model actually supports them.** Ordinary-page KD/volume/intent rules apply to each.
+  - **Sale/Deals carries a three-way cannibalisation check** against the homepage/shop and the relevant category page(s) — all three can end up listing the same discounted products under overlapping keyword angles.
+  - **Best Sellers/New Arrivals carries a four-way cannibalisation check** against the homepage/shop, category pages, and each other when both are active — same products, four pages, each needs a distinct keyword angle, not a relabeled product list.
+  - **New Arrivals' primary, when year-stamped (e.g. "new electric dirt bikes 2026"), goes stale annually** — re-pick it with the current year at each re-audit; a dated primary left unused past its year is a live drift, not just cosmetic.
+  - **Wholesale's secondaries must be genuinely B2B-flavored** (bulk/trade/account-style terms), sourced deliberately, not the retail category's ordinary secondaries reused as-is.
 - **Brand Hub — a separate, new aggregator page, not to be confused with #2's "Individual Brand pages."** Built by default only once the site stocks 3+ distinct brands; skipped entirely below that, not left "conditional-pending." Anchored Informational/Navigational (funnels into individual Brand pages), lighter treatment like the shop page.
 - **Individual Brand pages — anchored Navigational** (see #2 above, "Individual Brand pages specifically"), one per brand the site actually stocks.
 - **Utility pages (Contact/About/Shipping-Returns vs. Privacy/Terms/Cart/Search/404) — light-touch or fully excluded from keyword targeting respectively.** Never force a cluster onto these.
@@ -161,6 +165,65 @@ For each mapped page, identify:
 
 ### Page-Level FAQ Note
 **Every mapped page — product, category, individual brand, Brand Hub, shop, blog, active Sale/Best Sellers/New Arrivals/Compare/Wholesale — gets a page-specific mini-FAQ (2–4 Q&As) where the cluster has question-intent keywords to draw on, not just the homepage and the dedicated FAQ page.** This is a real organic-traffic lever, not decoration: each FAQ answer is indexable content that can absorb a secondary or LSI keyword naturally, so a page with a mini-FAQ competes for more query variations than the same page without one. Full rules, sourcing, and the "where possible" scope (some thin clusters genuinely have no question-intent keywords to draw on — don't invent questions) are in `references/content-planning.md` § Page-Level FAQ.
+
+---
+
+## Journey-Stage Internal Linking (cross-cutting, applies to every page above)
+
+**The gap this closes:** every page type above gets its own keyword
+assignment, but nothing so far mandates *linking* between pages that sit
+at different stages of the same buyer's path. Internal linking is the
+actual mechanism connecting funnel stages — without it, journey-stage
+coverage exists on paper but isn't actually walkable by a real visitor or
+by a crawler following the site's link graph.
+
+**The mapping — already implicit in the intent model above, made
+explicit:**
+
+| Funnel stage | Intent | Page types |
+|---|---|---|
+| Awareness | Informational | Blog pillar/guide posts |
+| Consideration / Comparison | Commercial | Blog comparison/review posts, Compare pages |
+| Purchase | Transactional | Category/subcategory, Product pages, Shop/Sale/Wholesale/Best Sellers/New Arrivals pages |
+| Post-purchase / Loyalty | Informational, retention-flavored content category | Blog care/maintenance/accessory content, FAQ |
+
+**This table doesn't change the blog-anchoring sourcing order above
+(Reason A → Commercial → Reason A2/Informational).** Informational
+appearing as the Awareness-stage intent is a funnel-mapping fact, not a
+license to source it before Transactional/Commercial — the strict
+sourcing order still governs *which* keywords get found and used first.
+"Retention-flavored" in the Loyalty row is a **content-category label,
+not a new formal intent tag** — those topics still get classified via the
+normal Transactional→Commercial→Informational→Question→Navigational
+tie-break rule (`filter-and-cluster.md`); this table just groups them by
+funnel purpose on top of that classification.
+
+**Linking requirement — bidirectional, not one-way:**
+- Every Commercial/Informational blog post must link **forward** to the
+  specific Transactional page(s) it should funnel toward (a comparison
+  post links to the category/product pages it's comparing, a guide links
+  to the category it's guiding someone toward).
+- Every Transactional category/product page should link **back** to
+  relevant Informational/Commercial content when it exists (a product
+  page linking to its own review/comparison post, a category page linking
+  to its buying-guide pillar post).
+- This is checked as part of each page's on-page requirements above, not
+  a separate pass — when a page's primary/secondary keywords are
+  assigned, the linking path to/from its journey-adjacent content gets
+  noted at the same time (see Internal Link Slots above).
+
+**Loyalty-stage blog topics — a legitimate fifth category, additive to
+the blog-anchoring sourcing order, not a replacement for it.** Once the
+strict Transactional/Commercial-first blog sourcing is satisfied, post-
+purchase content (care guides, accessory/upsell topics, "how to use/
+maintain [product]") is worth sourcing too — repeat customers and reduced
+returns are still revenue (Rule 2), even though it isn't acquiring a
+first-time buyer. This never jumps ahead of the strict sourcing order; it
+sits alongside it as an additional topic category once the core order is
+satisfied, the same way Informational already sits as last-resort filler.
+**It counts toward the same launch-batch/1000+ overall targets, not a
+separate quota on top** — this adds a category of topic to pull from when
+filling a batch, it doesn't add to the number the batch needs to hit.
 
 ---
 
