@@ -322,6 +322,20 @@ This is the one connection point between taxonomy research and keyword
 clustering — everything else about Phase 1–4 (filtering, intent, scoring)
 runs exactly as it does without Phase 0.
 
+**Every category/subcategory from `taxonomy-map.md` is Guarantee-mandated
+for a page at Phase 5 mapping, the same status an existing site's real
+category would carry — not a Gap proposal needing separate approval.**
+This is specifically because Phase 0 only runs when the user is building
+a shop from scratch with no existing site: there's no "existing" page to
+match against (`page-mapping.md` item 2) because nothing is built yet, so
+the taxonomy itself *is* the structure the new site gets built from — the
+same role an `EXISTING PAGE LIST` plays for an established site. A Category
+Gap (`page-mapping.md` item 6, needing approval before it ships) is a
+different situation entirely: a cluster with real demand that has no home
+in an *already-established* taxonomy, which only arises for a site that
+either skipped Phase 0 or found something Phase 0 didn't anticipate (see
+"No match to any seed cluster" above).
+
 ---
 
 ## Quality Control — this file's own dedicated audit layer

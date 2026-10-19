@@ -308,7 +308,7 @@ Governed by Rule 5 (`core-rules.md`). Nine page-type pathways, three Guarantee v
 8. **Page-Level FAQ present on every page whose cluster supports it** (2–4 Q&As), never invented filler where the cluster has nothing to draw on.
 9. **The Cannibalisation Audit ran continuously at all three levels (URL/Secondary/FAQ) as pages were mapped**, with a final confirmation pass at the end — not checked only once at the finish.
 10. **Orphan singles correctly routed**: Reason A (Transactional, vol 20–99) and Reason A2 (Informational, vol <200) to blog, Reason B (real volume, no match) always to a Gap Flag — and every carve-out (taxonomy category, homepage/shop, FAQ, active conditional page, stocked product/brand) was checked before any orphan was blog-routed.
-11. **If Phase 0 ran, every seed cluster's taxonomy category/subcategory got its own page per the Category/Subcategory Guarantee** — none left unmapped because Phase 4's clustering output didn't explicitly flag it.
+11. **If Phase 0 ran, every category/subcategory in `taxonomy-map.md` got its own page, Guarantee-mandated the same as an existing category** (`niche-taxonomy.md` § Feeding into clustering) — never left as an unapproved Gap proposal, and never left unmapped because Phase 4's clustering output didn't explicitly flag it.
 
 **Re-audit (later, same trigger pattern as every other Layer 2 in this skill):**
 - Has a conditional page's trigger changed state (newly relevant, or no longer)? Re-run that page type's section.
